@@ -16,7 +16,6 @@ vless://72059151-69f0-443d-b1ef-ce812bf1fd33@83.147.252.48:443?type=tcp&security
 vless://72059151-69f0-443d-b1ef-ce812bf1fd33@83.147.252.48:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&sni=st.ozone.ru&fp=chrome&pbk=6UZfCUAMOmZO4-MI5ygEEmRP369QpZ0L6hxgJ_cAeEA&sid=0c5327d87f682ecf&spx=%2F#%F0%9F%87%AB%F0%9F%87%AE%20Finland%20%E2%80%94%20%23666
 vless://72059151-69f0-443d-b1ef-ce812bf1fd33@83.147.252.48:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&sni=st.ozone.ru&fp=chrome&pbk=6UZfCUAMOmZO4-MI5ygEEmRP369QpZ0L6hxgJ_cAeEA&sid=0c5327d87f682ecf&spx=/#🇫🇮[openproxylist.com] vless-FI
 vless://51289428-16a7-43fe-980c-ef25320e92f5@51.250.126.146:7443?security=reality&type=grpc&mode=gun&sni=api-maps.yandex.ru&fp=random&pbk=bKiQq30ckj23G9_S9EVW6L6cIniS-g8TuWhhjv8Z4Qg&sid=495be1b9a06c6cb7&spx=/#%F0%9F%87%AB%F0%9F%87%AE%20Finland%20%E2%80%94%20%23240
-8TqfbyZ8Ufs9RodUGE&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=st.ozone.ru&sid=097de35e52ec5256#All-%23V2rayAlpha--6
 vless://c2e196d4-3453-4c6c-bb80-fe372801e1a0@62.60.237.26:443?security=reality&encryption=none&pbk=lmLFxJO0l6GlHhi3a4I6cKWdQLDo-f8ciODP0xh3EXQ&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=st.ozone.ru&sid=9d36b8589fa524fd#%F0%9F%87%AB%F0%9F%87%AE%20Finland%20%E2%80%94%20%23515
 vless://72059151-69f0-443d-b1ef-ce812bf1fd33@83.147.252.48:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&sni=st.ozone.ru&fp=chrome&pbk=6UZfCUAMOmZO4-MI5ygEEmRP369QpZ0L6hxgJ_cAeEA&sid=0c5327d87f682ecf&spx=%2F#%F0%9F%87%AB%F0%9F%87%AE%20Finland%20%E2%80%94%20%23519
 vless://b9df08e5-67f2-4c35-b5ae-89b47396d03a@51.250.36.103:8443?type=grpc&security=reality&pbk=zZ5Sjqub_ebiYOKfBJWRvpulesp9b7kYtM7dDE2YFyE&fp=chrome&sni=api-maps.yandex.ru&sid=0468&spx=/&encryption=none#%F0%9F%87%AB%F0%9F%87%AE%20Finland%20%E2%80%94%20%23535
@@ -26,6 +25,7 @@ vless://b9df08e5-67f2-4c35-b5ae-89b47396d03a@51.250.36.103:8443?type=grpc&securi
 vless://b9df08e5-67f2-4c35-b5ae-89b47396d03a@51.250.36.103:8443?type=grpc&security=reality&pbk=zZ5Sjqub_ebiYOKfBJWRvpulesp9b7kYtM7dDE2YFyE&fp=chrome&sni=api-maps.yandex.ru&sid=bd9442e1ce98c6&spx=/&encryption=none#%F0%9F%87%AB%F0%9F%87%AE%20Finland%20%E2%80%94%20%23543
 vless://b9df08e5-67f2-4c35-b5ae-89b47396d03a@51.250.36.103:8443?type=grpc&security=reality&pbk=zZ5Sjqub_ebiYOKfBJWRvpulesp9b7kYtM7dDE2YFyE&fp=chrome&sni=api-maps.yandex.ru&sid=df26aef3032111&spx=/&encryption=none#%F0%9F%87%AB%F0%9F%87%AE%20Finland%20%E2%80%94%20%23547
 vless://b9df08e5-67f2-4c35-b5ae-89b47396d03a@51.250.36.103:8443?type=grpc&security=reality&pbk=zZ5Sjqub_ebiYOKfBJWRvpulesp9b7kYtM7dDE2YFyE&fp=chrome&sni=api-maps.yandex.ru&sid=746901aa83ac&spx=/&encryption=none#%F0%9F%87%AB%F0%9F%87%AE%20Finland%20%E2%80%94%20%23550
+
 
 
 
