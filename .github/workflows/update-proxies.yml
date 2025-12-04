@@ -1,97 +1,64 @@
 name: Sync MegafonNew UUIDs
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
-  sync-megafon:
+  update:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
-      - name: Install deps
-        run: pip install --upgrade pip requests
+      - run: pip install requests
 
-      - name: Check and update UUIDs
-        id: updater
+      - name: Update UUIDs
+        id: upd
         run: |
-          cat > sync_megafon.py <<'PY'
-import re
-import requests
-import sys
+          python3 - << 'EOF'
+          import re, requests, sys
 
-SOURCE_URL = "https://s3c3.001.gpucloud.ru/timestar1/love"
-TARGET_FILE = "test.txt"
+          SOURCE_URL = "https://s3c3.001.gpucloud.ru/timestar1/love"
+          TARGET = "test.txt"
 
-# 1) Скачать источник
-try:
-    src = requests.get(SOURCE_URL, timeout=15).text
-except Exception as e:
-    print("ERROR: failed to fetch source:", e)
-    print("changes=false")
-    sys.exit(0)
+          try:
+              src = requests.get(SOURCE_URL, timeout=10).text
+          except:
+              print("changes=false")
+              sys.exit(0)
 
-# 2) Найти первый vless URL в источнике, содержащий MegafonNew
-m = re.search(r"vless://([a-f0-9-]+)@[^\\s#\\n]*(?:#.*?MegafonNew[^\\s\\n]*)", src, flags=re.IGNORECASE)
-if not m:
-    print("No MegafonNew entry with vless found in source")
-    print("changes=false")
-    sys.exit(0)
+          m = re.search(r"vless://([a-f0-9-]+)@[^\\s#]+#.*MegafonNew", src, re.I)
+          if not m:
+              print("changes=false")
+              sys.exit(0)
 
-new_uuid = m.group(1)
-print("FOUND_UUID=" + new_uuid)
+          uuid = m.group(1)
 
-# 3) Прочитать test.txt
-try:
-    with open(TARGET_FILE, "r", encoding="utf-8") as f:
-        text = f.read()
-except FileNotFoundError:
-    print("Target file not found:", TARGET_FILE)
-    print("changes=false")
-    sys.exit(0)
+          with open(TARGET, "r", encoding="utf-8") as f:
+              text = f.read()
 
-# 4) Заменять только UUID в vless://...@ на новом UUID, но только в строках, где есть MegafonNew
-# Используем lookahead: заменяем UUID в части vless://UUID@ только если далее в той же строке есть MegafonNew
-pattern = re.compile(r"(vless://)([a-f0-9-]+)(@)(?=[^\\n]*MegafonNew)", flags=re.IGNORECASE)
+          new = re.sub(
+              r"(vless://)[a-f0-9-]+(@[^\\s#]+#.*MegafonNew)",
+              r"\\1" + uuid + r"\\2",
+              text,
+              flags=re.I
+          )
 
-new_text, n_subs = pattern.subn(lambda m: m.group(1) + new_uuid + m.group(3), text)
+          if new != text:
+              with open(TARGET, "w", encoding="utf-8") as f:
+                  f.write(new)
+              print("changes=true")
+          else:
+              print("changes=false")
+          EOF
 
-if n_subs > 0 and new_text != text:
-    with open(TARGET_FILE, "w", encoding="utf-8") as f:
-        f.write(new_text)
-    print(f"changes=true")
-    print(f"replacements={n_subs}")
-else:
-    print("changes=false")
-PY
-
-          python3 sync_megafon.py | tee sync_output.log
-          # получить значение changes (true/false)
-          CHG=$(grep -m1 "^changes=" sync_output.log | cut -d'=' -f2 || true)
-          # если не нашли строку changes, попробуем определить по "FOUND_UUID" и "replacements"
-          if [ -z "$CHG" ]; then
-            REPL=$(grep -m1 "^replacements=" sync_output.log | cut -d'=' -f2 || echo "")
-            if [ -n "$REPL" ] && [ "$REPL" != "0" ]; then
-              CHG=true
-            else
-              CHG=false
-            fi
-          fi
-          echo "changes_detected=$CHG" >> $GITHUB_OUTPUT
-
-      - name: Commit changes
-        if: steps.updater.outputs.changes_detected == 'true'
+      - name: Commit update
+        if: steps.upd.outputs.changes == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Auto-sync MegafonNew UUIDs"
-          commit_user_name: "github-actions"
-          commit_user_email: "actions@github.com"
+          commit_message: "Megafon UUID updated"
           file_pattern: test.txt
