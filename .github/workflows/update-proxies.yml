@@ -33,7 +33,7 @@ jobs:
             echo "changes=false" >> $GITHUB_OUTPUT
           else
             # Заменяем все UUID в строках, где есть MegafonNew
-            sed -i -E "s|(vless://)[^@]+(@[^#]+#.*MegafonNew[^ ]*)|\1$uuid\2|i" test.txt
+            sed -i -E "s|(vless://)[0-9a-f-]+(@[^#]+#.*MegafonNew.*)|\1$uuid\2|i" test.txt
 
             echo "File after:"
             cat test.txt
