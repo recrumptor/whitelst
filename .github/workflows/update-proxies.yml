@@ -15,6 +15,7 @@ jobs:
         run: |
           # Получаем UUID из источника
           uuid=$(curl -s https://s3c3.001.gpucloud.ru/timestar1/love | grep -oP 'vless://\K[0-9a-f-]+(?=@[^\s#]+#.*MegafonNew)')
+          echo "UUID found: $uuid"
 
           # Если UUID не найден — выходим
           if [ -z "$uuid" ]; then
@@ -22,18 +23,11 @@ jobs:
             exit 0
           fi
 
+          echo "File before:"
+          cat test.txt
+
           # Проверяем, есть ли уже такой UUID в файле
           if grep -q "vless://$uuid@" test.txt; then
             echo "changes=false" >> $GITHUB_OUTPUT
           else
-            # Заменяем старый UUID на новый
-            sed -i -E "s|(vless://)[0-9a-f-]+(@[^\s#]+#.*MegafonNew)|\1$uuid\2|i" test.txt
-            echo "changes=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Commit update
-        if: steps.upd.outputs.changes == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Megafon UUID updated"
-          file_pattern: test.txt
+            # Более универсальная регулярка: заменяет всё между vless:// и
