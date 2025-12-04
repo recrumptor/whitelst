@@ -114,13 +114,12 @@ if __name__ == "__main__":
 EOF
           # Извлекаем флаг CHANGES_DETECTED из вывода скрипта для использования в следующем шаге
           CHANGES=$(grep "CHANGES_DETECTED=" script_output.txt | cut -d'=' -f2)
-          # Устанавливаем выходную переменную (теперь синтаксис корректен)
+          # Устанавливаем выходную переменную
           echo "changes_detected=$CHANGES" >> $GITHUB_OUTPUT
           # Также выводим содержимое script_output.txt в лог Actions для отладки
           cat script_output.txt
 
       - name: Commit and push changes
-        # Используем обновленный синтаксис для ссылки на output из предыдущего шага
         if: steps.run_script_step.outputs.changes_detected == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
