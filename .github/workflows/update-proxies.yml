@@ -10,9 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Update UUIDs with sed
+      - name: Update UUIDs with sed (force replace + diff)
         id: upd
         run: |
+          set -e
+
           # Берём первую vless-ссылку из источника
           first_link=$(curl -s https://s3c3.001.gpucloud.ru/timestar1/love | grep -m1 -oP 'vless://[^\s]+')
           uuid=$(echo "$first_link" | grep -oP '(?<=vless://)[0-9a-f-]+(?=@)')
@@ -21,23 +23,29 @@ jobs:
 
           # Если UUID не найден — выходим
           if [ -z "$uuid" ]; then
-            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "changes=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
           echo "File before:"
           cat test.txt
 
-          # Проверяем, есть ли уже такой UUID в файле
-          if grep -q "vless://$uuid@" test.txt; then
-            echo "changes=false" >> $GITHUB_OUTPUT
-          else
-            # Заменяем все UUID в строках, где есть MegafonNew
-            sed -i -E "s|(vless://)[0-9a-f-]+(@[^#]+#.*MegafonNew.*)|\1$uuid\2|i" test.txt
+          # Копия для сравнения
+          cp test.txt test.txt.bak
 
-            echo "File after:"
-            cat test.txt
-            echo "changes=true" >> $GITHUB_OUTPUT
+          # Принудительно заменяем UUID во всех строках, где встречается MegafonNew
+          # Берём всё между 'vless://' и '@' как старый UUID и заменяем на новый
+          # Ловим любые варианты комментария, где встречается 'MegafonNew' (скобки/цифры/эмодзи и т.п.)
+          sed -i -E "s|(vless://)[^@]+(@[^#]+#.*MegafonNew.*)|\1$uuid\2|I" test.txt
+
+          echo "File after:"
+          cat test.txt
+
+          # Проверяем, были ли изменения
+          if cmp -s test.txt.bak test.txt; then
+            echo "changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changes=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Commit update
