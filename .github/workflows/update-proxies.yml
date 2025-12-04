@@ -1,18 +1,15 @@
-name: Update VLESS UUID Proxies
+name: Sync MegafonNew UUIDs
 
 on:
-  push:
-    branches: ["main"]
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
-  update-proxies-job:
+  sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -20,87 +17,68 @@ jobs:
           python-version: "3.10"
 
       - name: Install requests
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
+        run: pip install requests
 
-      - name: Run update script
+      - name: Check & update UUIDs
         id: updater
         run: |
-          # создаём python-скрипт (корректно для YAML — используется обычный pipe)
-          cat > update_proxies.py <<'PY'
-import requests
+          cat > sync.py << 'EOF'
 import re
-from urllib.parse import urlparse, urlunparse
+import requests
+import os
 
 SOURCE_URL = "https://s3c3.001.gpucloud.ru/timestar1/love"
-TARGET_FILE_PATH = "test.txt"
+TARGET_FILE = "test.txt"
 
-# <<< ВСТАВЬ СЮДА СВОЙ СПИСОК ПРОКСИ (строки в кавычках, запятые) >>>
-TARGET_PROXIES_LIST = [
-    "vless://703fd847-9154-428f-aaa3-6c596813458e@51.250.105.64:9443?security=reality#example1",
-    "vless://703fd847-9154-428f-aaa3-6c596813458e@84.201.138.55:8443?security=reality#example2"
-]
+# загрузка исходника
+try:
+    src = requests.get(SOURCE_URL, timeout=10).text
+except Exception as e:
+    print("ERROR fetching source:", e)
+    print("changes=false")
+    exit(1)
 
-def extract_uuid(vless_url):
-    parsed = urlparse(vless_url)
-    return parsed.username
+# найти все URL с MegafonNew
+matches = re.findall(r"(vless://[a-f0-9\\-]+@[^\s#]+)#.*?MegafonNew[^\s]+", src)
+if not matches:
+    print("No MegafonNew entries found in source")
+    print("changes=false")
+    exit(0)
 
-def update_uuid_in_url(vless_url, new_uuid):
-    parsed = urlparse(vless_url)
-    # собираем новый netloc: uuid@host:port
-    host = parsed.hostname or ""
-    port = parsed.port or ""
-    new_netloc = f"{new_uuid}@{host}:{port}" if port else f"{new_uuid}@{host}"
-    return urlunparse(parsed._replace(netloc=new_netloc))
+# например, берём первый
+first_url = matches[0]
+print("First matching URL:", first_url)
 
-def main():
-    try:
-        r = requests.get(SOURCE_URL, timeout=15)
-        r.raise_for_status()
-        content = r.text
-    except Exception as e:
-        print("ERROR: failed to fetch source:", e)
-        print("CHANGES_DETECTED=false")
-        return
+# из URL извлечь UUID (часть до @)
+m2 = re.match(r"vless://([a-f0-9\\-]+)@", first_url)
+if not m2:
+    print("Could not extract UUID")
+    print("changes=false")
+    exit(0)
+new_uuid = m2.group(1)
+print("New UUID:", new_uuid)
 
-    m = re.search(r"vless://([a-f0-9-]+)@", content)
-    if not m:
-        print("CHANGES_DETECTED=false")
-        return
+# читаем твой файл
+with open(TARGET_FILE, "r", encoding="utf-8") as f:
+    content = f.read()
 
-    new_uuid = m.group(1)
-    changed = False
-    updated = []
-    for url in TARGET_PROXIES_LIST:
-        old = extract_uuid(url)
-        if old != new_uuid:
-            updated.append(update_uuid_in_url(url, new_uuid))
-            changed = True
-        else:
-            updated.append(url)
+# заменяем все URL’ы с MegafonNew на новый UUID
+updated = re.sub(r"(vless://)[a-f0-9\\-]+(@[^\s#]+#.*?MegafonNew[^\s]+)", r"\1"+new_uuid+r"\2", content)
 
-    if changed:
-        with open(TARGET_FILE_PATH, "w", encoding="utf-8") as f:
-            for line in updated:
-                f.write(line + "\\n")
-        print("CHANGES_DETECTED=true")
-    else:
-        print("CHANGES_DETECTED=false")
-
-if __name__ == '__main__':
-    main()
-PY
-
-          # запускаем и сохраняем вывод
-          python3 update_proxies.py | tee action_output.log
-          # передаём флаг в GITHUB_OUTPUT корректным способом
-          CHG=$(grep -m1 "CHANGES_DETECTED=" action_output.log | cut -d= -f2 || echo "false")
+if updated != content:
+    with open(TARGET_FILE, "w", encoding="utf-8") as f:
+        f.write(updated)
+    print("changes=true")
+else:
+    print("changes=false")
+EOF
+          python3 sync.py | tee out.log
+          CHG=$(grep -m1 "changes=" out.log | cut -d= = -f2)
           echo "changes_detected=$CHG" >> $GITHUB_OUTPUT
 
-      - name: Commit and push changes
+      - name: Commit changes
         if: steps.updater.outputs.changes_detected == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Auto update UUID in proxies"
+          commit_message: "Sync MegafonNew UUIDs"
           file_pattern: test.txt
