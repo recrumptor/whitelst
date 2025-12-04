@@ -10,59 +10,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-
-      - run: pip install requests
-
-      - name: Update UUIDs
+      - name: Update UUIDs with sed
         id: upd
         run: |
-          python3 - << 'EOF'
-import re, requests, sys, os
+          # Получаем UUID из источника
+          uuid=$(curl -s https://s3c3.001.gpucloud.ru/timestar1/love | grep -oP 'vless://\K[0-9a-f-]+(?=@[^\s#]+#.*MegafonNew)')
 
-SOURCE_URL = "https://s3c3.001.gpucloud.ru/timestar1/love"
-TARGET = "test.txt"
+          # Если UUID не найден — выходим
+          if [ -z "$uuid" ]; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
 
-try:
-    src = requests.get(SOURCE_URL, timeout=10).text
-except:
-    print("changes=false")
-    with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-        f.write("changes=false\n")
-    sys.exit(0)
-
-m = re.search(r"vless://([a-f0-9-]+)@[^\\s#]+#.*MegafonNew", src, re.I)
-if not m:
-    print("changes=false")
-    with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-        f.write("changes=false\n")
-    sys.exit(0)
-
-uuid = m.group(1)
-
-with open(TARGET, "r", encoding="utf-8") as f:
-    text = f.read()
-
-new = re.sub(
-    r"(vless://)[a-f0-9-]+(@[^\\s#]+#.*MegafonNew)",
-    r"\\1" + uuid + r"\\2",
-    text,
-    flags=re.I
-)
-
-if new != text:
-    with open(TARGET, "w", encoding="utf-8") as f:
-        f.write(new)
-    print("changes=true")
-    with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-        f.write("changes=true\n")
-else:
-    print("changes=false")
-    with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-        f.write("changes=false\n")
-EOF
+          # Проверяем, есть ли уже такой UUID в файле
+          if grep -q "vless://$uuid@" test.txt; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            # Заменяем старый UUID на новый
+            sed -i -E "s|(vless://)[0-9a-f-]+(@[^\s#]+#.*MegafonNew)|\1$uuid\2|i" test.txt
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Commit update
         if: steps.upd.outputs.changes == 'true'
