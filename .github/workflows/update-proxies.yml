@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -25,10 +25,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run proxy update script
-        id: update
+      - name: Run update script
+        id: updater
         run: |
-          python3 << 'EOF'
+          cat > script.py << 'EOF'
 import requests
 import re
 from urllib.parse import urlparse, urlunparse
@@ -36,9 +36,8 @@ from urllib.parse import urlparse, urlunparse
 SOURCE_URL = "https://s3c3.001.gpucloud.ru/timestar1/love"
 TARGET_FILE_PATH = "test.txt"
 
-# Твой список прокси:
 TARGET_PROXIES_LIST = [
-    # (обрезал ради краткости — вставь весь список)
+    # <<< ВСТАВЬ СЮДА СВОИ ПРОКСИ >>>
 ]
 
 def extract_uuid(vless_url):
@@ -52,37 +51,33 @@ def update_uuid_in_url(vless_url, new_uuid):
 
 def main():
     try:
-        resp = requests.get(SOURCE_URL, timeout=10)
-        resp.raise_for_status()
-        text = resp.text
+        r = requests.get(SOURCE_URL, timeout=15)
+        r.raise_for_status()
+        content = r.text
     except Exception as e:
-        print(f"Ошибка загрузки источника: {e}")
         print("CHANGES_DETECTED=false")
         return
 
-    match = re.search(r"vless://([a-f0-9-]+)@", text)
-    if not match:
-        print("UUID не найден в источнике.")
+    m = re.search(r"vless://([a-f0-9-]+)@", content)
+    if not m:
         print("CHANGES_DETECTED=false")
         return
 
-    new_uuid = match.group(1)
-    print(f"Получен UUID: {new_uuid}")
-
+    new_uuid = m.group(1)
     changed = False
-    new_list = []
+    updated = []
 
     for url in TARGET_PROXIES_LIST:
         old_uuid = extract_uuid(url)
         if old_uuid != new_uuid:
+            updated.append(update_uuid_in_url(url, new_uuid))
             changed = True
-            new_list.append(update_uuid_in_url(url, new_uuid))
         else:
-            new_list.append(url)
+            updated.append(url)
 
     if changed:
         with open(TARGET_FILE_PATH, "w", encoding="utf-8") as f:
-            for line in new_list:
+            for line in updated:
                 f.write(line + "\n")
         print("CHANGES_DETECTED=true")
     else:
@@ -92,19 +87,12 @@ if __name__ == "__main__":
     main()
 EOF
 
-          # перенаправляем флаг в GITHUB_OUTPUT
-          CHANGES=$(grep "CHANGES_DETECTED=" -m1 <(python3 - <<'EOF'
-import sys
-# Это просто чтобы избежать запуска второго раза — мы не запускаем код здесь.
-EOF
-))
-          echo "changes_detected=$(grep 'CHANGES_DETECTED=' script_output.txt | cut -d= -f2)" >> $GITHUB_OUTPUT
+          python3 script.py | tee output.log
+          echo "changes_detected=$(grep CHANGES_DETECTED output.log | cut -d= -f2)" >> $GITHUB_OUTPUT
 
       - name: Commit and push changes
-        if: steps.update.outputs.changes_detected == 'true'
+        if: steps.updater.outputs.changes_detected == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Автоматическое обновление UUID прокси"
-          commit_user_name: "GitHub Actions"
-          commit_user_email: "actions@github.com"
+          commit_message: "Auto update UUID in proxies"
           file_pattern: test.txt
