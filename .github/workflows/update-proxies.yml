@@ -1,9 +1,8 @@
-name: Sync MegafonNew UUIDs
+name: Sync MegafonNew UUIDs Stable
 
 on:
   workflow_dispatch:
   schedule:
-    # Запускать каждый день в 00:00 UTC (вы можете добавить эту строку, если хотите автоматический запуск)
     - cron: '0 0 * * *'
 
 jobs:
@@ -11,69 +10,66 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
       - name: Install dependencies
         run: pip install requests
 
-      - name: Update UUIDs
-        id: upd
+      - name: Update UUIDs and set flag
+        id: upd_script_step
         run: |
-          python3 - << 'EOF'
-          import re, requests, sys
-          import os
+          python3 - << 'EOF' > script_output.txt
+import re, requests, sys
+import os
 
-          # URL источника списка прокси
-          SOURCE_URL = "https://s3c3.001.gpucloud.ru/timestar1/love"
-          # Целевой файл в вашем репозитории
-          TARGET = "test.txt"
+SOURCE_URL = "s3c3.001.gpucloud.ru"
+TARGET = "test.txt"
+CHANGES_DETECTED = "false"
 
-          try:
-              src = requests.get(SOURCE_URL, timeout=10).text
-          except requests.exceptions.RequestException as e:
-              print(f"Error fetching source URL: {e}")
-              # Устанавливаем выходную переменную GitHub Actions
-              print("::set-output name=changes::false")
-              sys.exit(0)
+try:
+    src = requests.get(SOURCE_URL, timeout=10).text
+except:
+    print("changes=false")
+    sys.exit(0)
 
-          # Ищем актуальный UUID в источнике, который имеет метку MegafonNew
-          m = re.search(r"vless://([a-f0-9-]+)@[^\\s#]+#.*MegafonNew", src, re.I)
-          if not m:
-              print("Actual UUID not found in source.")
-              print("::set-output name=changes::false")
-              sys.exit(0)
+m = re.search(r"vless://([a-f0-9-]+)@[^\\s#]+#.*MegafonNew", src, re.I)
+if not m:
+    print("changes=false")
+    sys.exit(0)
 
-          uuid = m.group(1)
+uuid = m.group(1)
 
-          with open(TARGET, "r", encoding="utf-8") as f:
-              text = f.read()
+with open(TARGET, "r", encoding="utf-8") as f:
+    text = f.read()
 
-          # Заменяем старые UUID на новый ТОЛЬКО в строках с меткой MegafonNew
-          new_text = re.sub(
-              r"(vless://)[a-f0-9-]+(@[^\\s#]+#.*MegafonNew)",
-              r"\\1" + uuid + r"\\2",
-              text,
-              flags=re.I
-          )
+new_text = re.sub(
+    r"(vless://)[a-f0-9-]+(@[^\\s#]+#.*MegafonNew)",
+    r"\\1" + uuid + r"\\2",
+    text,
+    flags=re.I
+)
 
-          if new_text != text:
-              with open(TARGET, "w", encoding="utf-8") as f:
-                  f.write(new_text)
-              print("Changes detected. Updated test.txt with new UUID.")
-              # Устанавливаем выходную переменную GitHub Actions
-              print("::set-output name=changes::true")
-          else:
-              print("No changes needed.")
-              print("::set-output name=changes::false")
-          EOF
+if new_text != text:
+    with open(TARGET, "w", encoding="utf-8") as f:
+        f.write(new_text)
+    CHANGES_DETECTED = "true"
+
+print(f"changes={CHANGES_DETECTED}")
+EOF
+          # Извлекаем флаг из вывода скрипта и сохраняем его в переменную среды GitHub Actions
+          CHANGES=$(grep "changes=" script_output.txt | cut -d'=' -f2)
+          echo "COMMIT_NEEDED=$CHANGES" >> $GITHUB_ENV
+          cat script_output.txt
 
       - name: Commit update
-        # ИСПРАВЛЕННЫЕ ОТСТУПЫ ЗДЕСЬ: uses теперь выровнен с if
-        if: steps.upd.outputs.changes == 'true'
+        # Используем переменную среды GITHUB_ENV для проверки условия
+        if: env.COMMIT_NEEDED == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Megafon UUID updated"
