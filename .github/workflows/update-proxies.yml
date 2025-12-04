@@ -2,6 +2,9 @@ name: Sync MegafonNew UUIDs
 
 on:
   workflow_dispatch:
+  schedule:
+    # Запускать каждый день в 00:00 UTC (вы можете добавить эту строку, если хотите автоматический запуск)
+    - cron: '0 0 * * *'
 
 jobs:
   update:
@@ -14,26 +17,34 @@ jobs:
         with:
           python-version: "3.10"
 
-      - run: pip install requests
+      - name: Install dependencies
+        run: pip install requests
 
       - name: Update UUIDs
         id: upd
         run: |
           python3 - << 'EOF'
           import re, requests, sys
+          import os
 
+          # URL источника списка прокси
           SOURCE_URL = "https://s3c3.001.gpucloud.ru/timestar1/love"
+          # Целевой файл в вашем репозитории
           TARGET = "test.txt"
 
           try:
               src = requests.get(SOURCE_URL, timeout=10).text
-          except:
-              print("changes=false")
+          except requests.exceptions.RequestException as e:
+              print(f"Error fetching source URL: {e}")
+              # Устанавливаем выходную переменную GitHub Actions
+              print("::set-output name=changes::false")
               sys.exit(0)
 
+          # Ищем актуальный UUID в источнике, который имеет метку MegafonNew
           m = re.search(r"vless://([a-f0-9-]+)@[^\\s#]+#.*MegafonNew", src, re.I)
           if not m:
-              print("changes=false")
+              print("Actual UUID not found in source.")
+              print("::set-output name=changes::false")
               sys.exit(0)
 
           uuid = m.group(1)
@@ -41,24 +52,29 @@ jobs:
           with open(TARGET, "r", encoding="utf-8") as f:
               text = f.read()
 
-          new = re.sub(
+          # Заменяем старые UUID на новый ТОЛЬКО в строках с меткой MegafonNew
+          new_text = re.sub(
               r"(vless://)[a-f0-9-]+(@[^\\s#]+#.*MegafonNew)",
               r"\\1" + uuid + r"\\2",
               text,
               flags=re.I
           )
 
-          if new != text:
+          if new_text != text:
               with open(TARGET, "w", encoding="utf-8") as f:
-                  f.write(new)
-              print("changes=true")
+                  f.write(new_text)
+              print("Changes detected. Updated test.txt with new UUID.")
+              # Устанавливаем выходную переменную GitHub Actions
+              print("::set-output name=changes::true")
           else:
-              print("changes=false")
+              print("No changes needed.")
+              print("::set-output name=changes::false")
           EOF
 
       - name: Commit update
+        # ИСПРАВЛЕННЫЕ ОТСТУПЫ ЗДЕСЬ: uses теперь выровнен с if
         if: steps.upd.outputs.changes == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Megafon UUID updated"
-          file_pattern: test.txt
+          files: test.txt
