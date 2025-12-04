@@ -20,41 +20,49 @@ jobs:
         id: upd
         run: |
           python3 - << 'EOF'
-          import re, requests, sys
+import re, requests, sys, os
 
-          SOURCE_URL = "https://s3c3.001.gpucloud.ru/timestar1/love"
-          TARGET = "test.txt"
+SOURCE_URL = "https://s3c3.001.gpucloud.ru/timestar1/love"
+TARGET = "test.txt"
 
-          try:
-              src = requests.get(SOURCE_URL, timeout=10).text
-          except:
-              print("changes=false")
-              sys.exit(0)
+try:
+    src = requests.get(SOURCE_URL, timeout=10).text
+except:
+    print("changes=false")
+    with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+        f.write("changes=false\n")
+    sys.exit(0)
 
-          m = re.search(r"vless://([a-f0-9-]+)@[^\\s#]+#.*MegafonNew", src, re.I)
-          if not m:
-              print("changes=false")
-              sys.exit(0)
+m = re.search(r"vless://([a-f0-9-]+)@[^\\s#]+#.*MegafonNew", src, re.I)
+if not m:
+    print("changes=false")
+    with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+        f.write("changes=false\n")
+    sys.exit(0)
 
-          uuid = m.group(1)
+uuid = m.group(1)
 
-          with open(TARGET, "r", encoding="utf-8") as f:
-              text = f.read()
+with open(TARGET, "r", encoding="utf-8") as f:
+    text = f.read()
 
-          new = re.sub(
-              r"(vless://)[a-f0-9-]+(@[^\\s#]+#.*MegafonNew)",
-              r"\\1" + uuid + r"\\2",
-              text,
-              flags=re.I
-          )
+new = re.sub(
+    r"(vless://)[a-f0-9-]+(@[^\\s#]+#.*MegafonNew)",
+    r"\\1" + uuid + r"\\2",
+    text,
+    flags=re.I
+)
 
-          if new != text:
-              with open(TARGET, "w", encoding="utf-8") as f:
-                  f.write(new)
-              print("changes=true")
-          else:
-              print("changes=false")
-          EOF
+if new != text:
+    with open(TARGET, "w", encoding="utf-8") as f:
+        f.write(new)
+    print("changes=true")
+    with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+        f.write("changes=true\n")
+else:
+    print("changes=false")
+    with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+        f.write("changes=false\n")
+EOF
 
       - name: Commit update
         if: steps.upd.outputs.changes == 'true'
