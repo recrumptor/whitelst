@@ -39,7 +39,7 @@ jobs:
           # Принудительно заменяем UUID во всех строках, где встречается MegafonNew
           # Берём всё между 'vless://' и '@' как старый UUID и заменяем на новый
           # Ловим любые варианты комментария, где встречается 'MegafonNew' (скобки/цифры/эмодзи и т.п.)
-          sed -i -E "s|(vless://)[^@]+(@[^#]+#.*MegafonNew.*)|\1$uuid\2|I" cocucka.txt
+          sed -i -E "s|(vless://)[^@]+(@[^#]+#.*Megafon-FIX.*)|\1$uuid\2|I" cocucka.txt
 
           echo "File after:"
           cat cocucka.txt
