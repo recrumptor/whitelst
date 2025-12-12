@@ -1,0 +1,168 @@
+mode: rule
+ipv6: false
+log-level: error
+allow-lan: false
+tproxy-port: 7894
+unified-delay: true
+tcp-concurrent: true
+external-controller: 0.0.0.0:9090
+external-ui: ./ui
+external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
+
+#hosts:
+  #ntc.party: 130.255.77.28
+ 
+dns:
+  enable: true
+  listen: 0.0.0.0:7874
+  ipv6: false
+  default-nameserver:
+    - 77.88.8.8
+    - 77.88.8.1
+  nameserver:
+    - https://common.dot.dns.yandex.net/dns-query
+  proxy-server-nameserver:
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
+    
+keep-alive-idle: 60
+keep-alive-interval: 15
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+  #tracing: true
+
+routing-mark: 2
+
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+      
+  skip-domain:
+    - "Mijia Cloud"
+    - '+.lan'
+    - '+.local'
+    - '+.push.apple.com'
+    - '+.apple.com'
+   
+proxy-providers:
+
+  RU RUSIA:
+    type: http
+    url: "https://raw.githubusercontent.com/zieng2/wl/main/vless_universal.txt"
+    path: ./proxy_providers/ru.yaml
+    interval: 86400
+    header:
+      User-Agent:
+      - "FlClash"
+      x-hwid:
+      - "OpenWrt"
+    health-check:
+      enable: false
+      url: https://cp.cloudflare.com/generate_204
+      interval: 300
+      timeout: 5000
+      lazy: true
+      expected-status: 204
+ 
+    
+proxy-groups:
+
+  - name: SUB1
+    type: url-test
+    url: https://gstatic.com/generate_204
+    expected-status: 204
+    interval: 300
+    lazy: true
+    use: [RU RUSIA]
+    filter: "Timeweb|Aeza|GCN"
+
+  - name: SUB2
+    type: url-test
+    url: https://gstatic.com/generate_204
+    expected-status: 204
+    interval: 300
+    lazy: true
+    use: [RU RUSIA]
+    filter: "Germany|Finland|Netherland"
+    
+  
+rule-providers:
+
+  geo-blocked:
+    behavior: domain
+    type: http
+    format: text
+    url: 'https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/geo'
+    interval: 86400
+    path: ./ruleset/geo-blocked.yaml
+    
+  gemini:
+    behavior: classical
+    type: http
+    format: yaml
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml"
+    interval: 86400
+    path: ./ruleset/gemini.yaml
+    
+  openai:
+    behavior: classical
+    type: http
+    format: yaml
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/OpenAI/OpenAI.yaml"
+    interval: 86400
+    path: ./ruleset/openai.yaml
+
+rules:
+  - RULE-SET,gemini,SUB2
+  - RULE-SET,openai,SUB2
+  - DOMAIN-KEYWORD,ozon,DIRECT
+  - DOMAIN-KEYWORD,megafon,DIRECT
+  - DOMAIN-KEYWORD,avito,DIRECT
+  - DOMAIN-KEYWORD,rutube,DIRECT
+  - DOMAIN-KEYWORD,vkvideo,DIRECT
+  - DOMAIN-KEYWORD,wildberries,DIRECT
+  - DOMAIN-KEYWORD,magnit,DIRECT
+  - DOMAIN-KEYWORD,gosuslugi,DIRECT
+  - DOMAIN-KEYWORD,yandex,DIRECT
+  - DOMAIN-SUFFIX,mail.ru,DIRECT
+  - DOMAIN-SUFFIX,vk.com,DIRECT
+  - DOMAIN-SUFFIX,vk.ru,DIRECT
+  - DOMAIN-SUFFIX,ok.ru,DIRECT
+  - DOMAIN-SUFFIX,rzd.ru,DIRECT
+  - DOMAIN-SUFFIX,rustore.ru,DIRECT
+  - DOMAIN-SUFFIX,alfabank.ru,DIRECT
+  - DOMAIN-SUFFIX,nalog.ru,DIRECT
+  - DOMAIN-SUFFIX,gov.ru,DIRECT
+  - DOMAIN-SUFFIX,gismeteo.ru,DIRECT
+  - DOMAIN-SUFFIX,gismeteo.net,DIRECT
+  - DOMAIN-SUFFIX,vk-portal.net,DIRECT
+  - DOMAIN-SUFFIX,okcdn.ru,DIRECT
+  - DOMAIN-SUFFIX,dzen.ru,DIRECT
+  - DOMAIN-SUFFIX,ya.ru,DIRECT
+  - DOMAIN-SUFFIX,dzeninfra.ru,DIRECT
+  - DOMAIN-SUFFIX,imgsmail.ru,DIRECT
+  - DOMAIN-SUFFIX,rbc.ru,DIRECT
+  - DOMAIN-SUFFIX,rbk.ru,DIRECT
+  - DOMAIN-SUFFIX,vkuser.net,DIRECT
+  - DOMAIN-SUFFIX,wb.ru,DIRECT
+  - DOMAIN-SUFFIX,wbbasket.ru,DIRECT
+  - DOMAIN-SUFFIX,userapi.com,DIRECT
+  - DOMAIN-SUFFIX,apteka.ru,DIRECT
+  - DOMAIN-SUFFIX,sovcombank.ru,DIRECT
+  - DOMAIN-SUFFIX,halvacard.ru,DIRECT
+  - DOMAIN-SUFFIX,mironline.ru,DIRECT
+  - DOMAIN-SUFFIX,tns-counter.ru,REJECT
+  - DOMAIN-SUFFIX,vk-analytics.ru,REJECT
+  - RULE-SET,geo-blocked,SUB2
+  - MATCH,SUB1
