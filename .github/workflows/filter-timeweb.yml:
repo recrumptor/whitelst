@@ -1,0 +1,59 @@
+name: Filter Vless Links for Timeweb Only
+
+on:
+  workflow_dispatch:
+  # Можно запускать вручную или по расписанию
+
+permissions:
+  contents: write
+
+jobs:
+  filter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Filter file using grep and compare
+        id: filter_step
+        run: |
+          set -e
+
+          TARGET_FILE="my_vless_links.txt"
+          FILTER_KEYWORD="Timeweb"
+
+          # Проверяем, существует ли файл перед обработкой
+          if [ ! -f "$TARGET_FILE" ]; then
+            echo "Файл $TARGET_FILE не найден. Пропускаем фильтрацию."
+            echo "changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Фильтруем файл $TARGET_FILE, оставляя только строки с '$FILTER_KEYWORD'..."
+
+          # 1. Делаем временную копию исходного файла для сравнения изменений
+          cp "$TARGET_FILE" "$TARGET_FILE.bak"
+
+          # 2. Используем grep для фильтрации и перезаписываем оригинальный файл
+          # -i: игнорировать регистр (Timeweb, timeweb)
+          # grep -i "$FILTER_KEYWORD" "$TARGET_FILE.bak" > "$TARGET_FILE"
+          # Если вы хотите оставить только VLESS ссылки, можно добавить проверку начала строки:
+          grep -E -i '^vless://.*'"$FILTER_KEYWORD"'.*' "$TARGET_FILE.bak" > "$TARGET_FILE"
+
+
+          # 3. Проверяем, были ли изменения в файле
+          if cmp -s "$TARGET_FILE.bak" "$TARGET_FILE"; then
+            echo "Изменений в файле нет."
+            echo "changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Изменения внесены. Файл обновлен."
+            echo "changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit update
+        # Запускаем коммит только если были изменения
+        if: steps.filter_step.outputs.changes == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Filter links: Keep Timeweb only"
+          file_pattern: "$TARGET_FILE"
