@@ -1,0 +1,58 @@
+name: Sync Timeweb Vless Links (Bash Only)
+
+on:
+  workflow_dispatch:
+  # Если нужно расписание, раскомментируйте:
+  # schedule:
+  #   - cron: "0 */2 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch and Filter Vless Links using Bash/Grep/Awk
+        id: filter_links
+        run: |
+          set -e
+
+          SOURCE_URL="https://raw.githubusercontent.com/zieng2/wl/00a9b88de2e3bdbe94ccc19706a3f65496c49b33/vless_universal.txt"
+          TARGET_FILE="my_vless_links.txt"
+          FILTER_KEYWORD="Timeweb"
+          CHANGES_MADE="false"
+
+          # Создаем целевой файл, если он не существует
+          touch $TARGET_FILE
+
+          echo "Начинаем загрузку и фильтрацию ссылок..."
+
+          # Скачиваем источник и построчно обрабатываем его через цикл Bash
+          curl -s $SOURCE_URL | while IFS= read -r line; do
+            # Проверяем, содержит ли строка ключевое слово "Timeweb"
+            if echo "$line" | grep -qi "$FILTER_KEYWORD"; then
+              # Проверяем, существует ли уже такая строка в целевом файле
+              if ! grep -Fxq "$line" "$TARGET_FILE"; then
+                # Если строки нет, добавляем ее в конец файла
+                echo "Найдена новая уникальная ссылка, добавляем..."
+                echo "$line" >> "$TARGET_FILE"
+                CHANGES_MADE="true"
+              fi
+            fi
+          done
+
+          echo "Обработка завершена. Изменения внесены: $CHANGES_MADE"
+          # Устанавливаем выходной параметр для следующего шага
+          echo "changes=$CHANGES_MADE" >> "$GITHUB_OUTPUT"
+
+      - name: Commit update
+        # Условный запуск шага, только если были изменения (changes == 'true')
+        if: steps.filter_links.outputs.changes == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Add new Timeweb Vless links"
+          file_pattern: "$TARGET_FILE"
