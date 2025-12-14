@@ -1,0 +1,91 @@
+name: Sync Timeweb Vless Links
+
+on:
+  workflow_dispatch:
+  #schedule:
+    #- cron: "0 */2 * * *"
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch and Filter Vless Links
+        id: filter_links
+        run: |
+          set -e
+
+          SOURCE_URL="raw.githubusercontent.com/zieng2/wl/00a9b88de2e3bdbe94ccc19706a3f65496c49b33/vless_universal.txt"
+          TARGET_FILE="my_vless_links.txt"
+          FILTER_KEYWORD="Timeweb"
+
+          # Устанавливаем python, если его нет (на ubuntu-latest обычно есть)
+          # apt-get update && apt-get install -y python3
+
+          # Создаем целевой файл, если его нет
+          touch $TARGET_FILE
+
+          # Запускаем Python-скрипт для обработки логики
+          python3 <<EOF
+import requests
+import os
+
+source_url = os.environ['SOURCE_URL']
+target_file = os.environ['TARGET_FILE']
+keyword = os.environ['FILTER_KEYWORD']
+
+# 1. Загружаем исходный файл из интернета
+try:
+    response = requests.get(source_url)
+    response.raise_for_status()
+    source_content = response.text
+except requests.exceptions.RequestException as e:
+    print(f"Ошибка при загрузке источника: {e}")
+    exit(1)
+
+# 2. Читаем текущие ссылки из нашего локального файла
+if os.path.exists(target_file):
+    with open(target_file, 'r', encoding='utf-8') as f:
+        existing_links = set(f.read().strip().splitlines())
+else:
+    existing_links = set()
+
+links_to_add = []
+changes_made = False
+
+# 3. Парсим новые строки и фильтруем по ключевому слову
+for line in source_content.strip().splitlines():
+    # Простая проверка на то, что строка похожа на vless ссылку и содержит ключевое слово в комментарии
+    if line.startswith("vless://") and keyword.lower() in line.lower():
+        # 4. Проверяем, есть ли уже такая ссылка у нас
+        if line not in existing_links:
+            print(f"Найдена новая ссылка для добавления: {line}")
+            links_to_add.append(line)
+            existing_links.add(line) # Добавляем в набор существующих, чтобы избежать дублирования внутри текущего запуска
+            changes_made = True
+
+# 5. Если есть что добавлять, записываем в файл (в конец)
+if links_to_add:
+    with open(target_file, 'a', encoding='utf-8') as f:
+        for link in links_to_add:
+            f.write(link + '\n')
+
+# 6. Устанавливаем выходной параметр для следующего шага коммита
+print(f"changes={changes_made}")
+with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+    print(f"changes={changes_made}", file=fh)
+
+EOF
+        # Конец python скрипта
+
+      - name: Commit update
+        # Используем выходной параметр из предыдущего шага
+        if: steps.filter_links.outputs.changes == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Add new Timeweb Vless links"
+          # Указываем файл, который нужно закоммитить
+          file_pattern: my_vless_links.txt
