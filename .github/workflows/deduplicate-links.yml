@@ -1,8 +1,7 @@
-name: Deduplicate mytimeweb.txt
+name: Deduplicate mytimeweb.txt (Ignore description)
 
 on:
   workflow_dispatch:
-  # Можно добавить schedule, если нужно чистить файл регулярно
 
 permissions:
   contents: write
@@ -14,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Remove duplicate lines using awk
+      - name: Remove duplicate lines by ignoring the # description
         id: deduplicate_step
         run: |
           set -e
@@ -27,14 +26,24 @@ jobs:
             exit 1
           fi
 
-          echo "Начинаем поиск и удаление дубликатов в $TARGET_FILE..."
+          echo "Начинаем поиск и удаление дубликатов, игнорируя описание после '#'..."
 
-          # Делаем временную копию исходного файла
           cp "$TARGET_FILE" "$TARGET_FILE.bak"
 
-          # Используем AWK для удаления дубликатов, сохраняя порядок строк, и перезаписываем файл
-          # Команда 'awk !seen[$0]++' оставляет только первое вхождение каждой строки
-          awk '!seen[$0]++' "$TARGET_FILE.bak" > "$TARGET_FILE"
+          # Используем AWK:
+          # $0 - вся строка
+          # sub(/#.*/, "", clean_line) - удаляем все, что начинается с # в строке clean_line
+          # !seen[clean_line]++ - проверяем уникальность по очищенной строке
+          # 1 - выводим строку, если она уникальна
+          awk '
+            {
+              clean_line = $0;
+              sub(/#.*/, "", clean_line);
+              if (!seen[clean_line]++) {
+                print $0;
+              }
+            }
+          ' "$TARGET_FILE.bak" > "$TARGET_FILE"
 
           # Проверяем, были ли изменения
           if cmp -s "$TARGET_FILE.bak" "$TARGET_FILE"; then
@@ -46,10 +55,8 @@ jobs:
           fi
 
       - name: Commit update
-        # Коммитим только если были изменения
         if: steps.deduplicate_step.outputs.changes == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Fix: Remove duplicate Vless links"
-          # Указываем точное имя файла
+          commit_message: "Fix: Remove duplicate Vless links (ignoring description)"
           file_pattern: "mytimeweb.txt"
