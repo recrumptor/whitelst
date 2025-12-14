@@ -1,0 +1,55 @@
+name: Deduplicate mytimeweb.txt
+
+on:
+  workflow_dispatch:
+  # Можно добавить schedule, если нужно чистить файл регулярно
+
+permissions:
+  contents: write
+
+jobs:
+  deduplicate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove duplicate lines using awk
+        id: deduplicate_step
+        run: |
+          set -e
+
+          TARGET_FILE="mytimeweb.txt"
+          
+          if [ ! -f "$TARGET_FILE" ]; then
+            echo "Файл $TARGET_FILE не найден!"
+            echo "changes=false" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
+          echo "Начинаем поиск и удаление дубликатов в $TARGET_FILE..."
+
+          # Делаем временную копию исходного файла
+          cp "$TARGET_FILE" "$TARGET_FILE.bak"
+
+          # Используем AWK для удаления дубликатов, сохраняя порядок строк, и перезаписываем файл
+          # Команда 'awk !seen[$0]++' оставляет только первое вхождение каждой строки
+          awk '!seen[$0]++' "$TARGET_FILE.bak" > "$TARGET_FILE"
+
+          # Проверяем, были ли изменения
+          if cmp -s "$TARGET_FILE.bak" "$TARGET_FILE"; then
+            echo "Дубликатов не найдено. Изменений нет."
+            echo "changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Дубликаты удалены. Файл обновлен."
+            echo "changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit update
+        # Коммитим только если были изменения
+        if: steps.deduplicate_step.outputs.changes == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Fix: Remove duplicate Vless links"
+          # Указываем точное имя файла
+          file_pattern: "mytimeweb.txt"
