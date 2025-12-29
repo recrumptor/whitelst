@@ -33,5 +33,5 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add geo.txt
-          git commit -m "Weekly update: $(date +'%Y-%m-%d')" || exit 0
+          git commit -m "Daily update: $(date +'%Y-%m-%d')" || exit 0
           git push
