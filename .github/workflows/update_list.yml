@@ -5,7 +5,10 @@ on:
     # Запуск каждый понедельник в 00:00 UTC
     - cron: '0 0 * * 1'
   workflow_dispatch: # Позволяет запустить процесс вручную кнопкой в GitHub
-
+  
+permissions:
+  contents: write
+  
 jobs:
   update-list:
     runs-on: ubuntu-latest
