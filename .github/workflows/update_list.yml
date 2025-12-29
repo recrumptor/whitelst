@@ -1,0 +1,34 @@
+name: Weekly Domain List Update
+
+on:
+  schedule:
+    # Запуск каждый понедельник в 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch: # Позволяет запустить процесс вручную кнопкой в GitHub
+
+jobs:
+  update-list:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download and Format List
+        run: |
+          # Скачиваем оригинальный список
+          curl -sSL https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Categories/geoblock.lst -o raw_domains.txt
+          
+          # Преобразуем формат: добавляем "+." в начало каждой непустой строки
+          # Также удаляем лишние пробелы и пустые строки, если они есть
+          sed -E 's/^([a-zA-Z0-9])/\+\.\1/' raw_domains.txt > geo1.txt
+          
+          # Удаляем временный файл
+          rm raw_domains.txt
+
+      - name: Commit and Push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add geo1.txt
+          git commit -m "Weekly update: $(date +'%Y-%m-%d')" || exit 0
+          git push
