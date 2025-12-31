@@ -51,8 +51,7 @@ payload:
   - DOMAIN-SUFFIX,gpmradio.ru
   - DOMAIN-SUFFIX,emgsound.ru
   - DOMAIN-SUFFIX,hostingradio.ru
-  - DOMAIN-SUFFIX,n340.com
-  - DOMAIN-SUFFIX,trkeurasia.ru
+  - DOMAIN-SUFFIX,n340.ru
   - DOMAIN-SUFFIX,restream-media.net
   # - DOMAIN-SUFFIX,beeline.tv
   - DOMAIN-SUFFIX,premier.one
