@@ -27,19 +27,22 @@ payload:
   - DOMAIN-SUFFIX,mts.ru
   - DOMAIN-SUFFIX,mymts.ru
   - DOMAIN-SUFFIX,mtsdengi.ru
+  - DOMAIN-SUFFIX,mts.investments
   - DOMAIN-SUFFIX,mts-link.ru
   - DOMAIN-SUFFIX,urentbike.ru
   - DOMAIN-SUFFIX,t2.ru
   - DOMAIN-SUFFIX,sbermobile.ru
-  - DOMAIN-SUFFIX,ertelecom.ru
+  # - DOMAIN-SUFFIX,ertelecom.ru
   - DOMAIN-SUFFIX,motivtelecom.ru
   - DOMAIN-SUFFIX,yota.ru
   # video
   - DOMAIN-KEYWORD,rutube
+  - DOMAIN-KEYWORD,ngenix
   - DOMAIN-SUFFIX,rtbcdn.ru
   - DOMAIN-SUFFIX,servicecdn.ru
   - DOMAIN-KEYWORD,kinopoisk
   - DOMAIN-SUFFIX,okko.tv
+  - DOMAIN-SUFFIX,playfamily.ru
   - DOMAIN-SUFFIX,ivi.ru
   - DOMAIN-SUFFIX,wink.ru
   - DOMAIN-SUFFIX,kion.ru
