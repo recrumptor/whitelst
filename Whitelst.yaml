@@ -202,9 +202,11 @@ payload:
   - DOMAIN-SUFFIX,rzd.ru
   - DOMAIN-SUFFIX,rzd-bonus.ru
   - DOMAIN-SUFFIX,tutu.ru
+  - DOMAIN-SUFFIX,tu-tu.ru
   - DOMAIN-SUFFIX,taximaxim.ru
   - DOMAIN-SUFFIX,flypobeda.ru
-  - DOMAIN-SUFFIX,aeroflot.com
+  - DOMAIN-SUFFIX,sirena-travel.ru
+  - DOMAIN-KEYWORD,aeroflot
   - DOMAIN-SUFFIX,citydrive.ru
   - DOMAIN-SUFFIX,travelrussia.ru
   - DOMAIN-SUFFIX,travel2moscow.com
