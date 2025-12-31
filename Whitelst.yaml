@@ -96,6 +96,8 @@ payload:
   - DOMAIN-KEYWORD,wildberries
   - DOMAIN-SUFFIX,wb.ru
   - DOMAIN-SUFFIX,wbbasket.ru
+  - DOMAIN-SUFFIX,wb-basket.ru
+  - DOMAIN-SUFFIX,wibes.ru
   - DOMAIN-KEYWORD,magnit
   - DOMAIN-SUFFIX,retailrocket.ru
   - DOMAIN-SUFFIX,x5.ru
