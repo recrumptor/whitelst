@@ -5,9 +5,11 @@ payload:
   - DOMAIN-KEYWORD,sovcombank
   - DOMAIN-SUFFIX,halvacard.ru
   - DOMAIN-SUFFIX,mironline.ru
+  - DOMAIN-SUFFIX,mirconnect.ru
   - DOMAIN-SUFFIX,t-bank-app.ru
   - DOMAIN-SUFFIX,tbank.ru
   - DOMAIN-SUFFIX,tinkoff.ru
+  - DOMAIN-SUFFIX,cdn-tinkoff.ru
   - DOMAIN-SUFFIX,finuslugi.ru
   - DOMAIN-SUFFIX,moex.com
   - DOMAIN-SUFFIX,banki.ru
@@ -24,6 +26,7 @@ payload:
   - DOMAIN-SUFFIX,beeline.ru
   - DOMAIN-SUFFIX,mts.ru
   - DOMAIN-SUFFIX,mymts.ru
+  - DOMAIN-SUFFIX,mtsdengi.ru
   - DOMAIN-SUFFIX,mts-link.ru
   - DOMAIN-SUFFIX,urentbike.ru
   - DOMAIN-SUFFIX,t2.ru
