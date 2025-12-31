@@ -35,7 +35,7 @@ payload:
   # - DOMAIN-SUFFIX,ertelecom.ru
   - DOMAIN-SUFFIX,motivtelecom.ru
   - DOMAIN-SUFFIX,yota.ru
-  # video
+  # media
   - DOMAIN-KEYWORD,rutube
   - DOMAIN-KEYWORD,ngenix
   - DOMAIN-SUFFIX,rtbcdn.ru
@@ -47,6 +47,12 @@ payload:
   - DOMAIN-SUFFIX,wink.ru
   - DOMAIN-SUFFIX,kion.ru
   - DOMAIN-SUFFIX,zvuk.com
+  - DOMAIN-SUFFIX,radioplayer.ru
+  - DOMAIN-SUFFIX,gpmradio.ru
+  - DOMAIN-SUFFIX,emgsound.ru
+  - DOMAIN-SUFFIX,hostingradio.ru
+  - DOMAIN-SUFFIX,n340.com
+  - DOMAIN-SUFFIX,trkeurasia.ru
   - DOMAIN-SUFFIX,restream-media.net
   # - DOMAIN-SUFFIX,beeline.tv
   - DOMAIN-SUFFIX,premier.one
