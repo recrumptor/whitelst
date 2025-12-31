@@ -76,7 +76,7 @@ payload:
   - DOMAIN-SUFFIX,vk-portal.net
   - DOMAIN-SUFFIX,vkcloud-static.ru
   - DOMAIN-SUFFIX,mvk.com
-  - DOMAIN-SUFFIX,cdn-vk.
+  - DOMAIN-SUFFIX,cdn-vk.ru
   - DOMAIN-SUFFIX,mradx.net
   
   # shop
@@ -140,6 +140,7 @@ payload:
   - DOMAIN-SUFFIX,av.ru
   # Yandex
   - DOMAIN-KEYWORD,yandex
+  - DOMAIN-KEYWORD,webvisor
   - DOMAIN-SUFFIX,dzen.ru
   - DOMAIN-SUFFIX,ya.ru
   - DOMAIN-SUFFIX,yastatic.net
