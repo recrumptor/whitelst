@@ -183,6 +183,7 @@ payload:
   - DOMAIN-KEYWORD,rambler
   - DOMAIN-SUFFIX,iz.ru
   - DOMAIN-SUFFIX,iz.push4site.com
+  - DOMAIN-SUFFIX,cdnvideo.ru
   - DOMAIN-SUFFIX,tass.ru
   - DOMAIN-SUFFIX,aif.ru
   - DOMAIN-SUFFIX,rg.ru
