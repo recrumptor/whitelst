@@ -48,8 +48,11 @@ payload:
   - DOMAIN-SUFFIX,kion.ru
   - DOMAIN-SUFFIX,zvuk.com
   - DOMAIN-SUFFIX,restream-media.net
-  - DOMAIN-SUFFIX,beeline.tv
+  # - DOMAIN-SUFFIX,beeline.tv
   - DOMAIN-SUFFIX,premier.one
+  - DOMAIN-SUFFIX,uma.media
+  - DOMAIN-SUFFIX,ritm.media
+  - DOMAIN-SUFFIX,trex.media
   - DOMAIN-SUFFIX,yappy.media
   # VK
   - DOMAIN-KEYWORD,vkvideo
