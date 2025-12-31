@@ -189,7 +189,7 @@ payload:
   - DOMAIN-SUFFIX,rg.ru
   - DOMAIN-SUFFIX,vedomosti.ru
   - DOMAIN-SUFFIX,mk.ru
-  - DOMAIN-SUFFIX,viqueo.tv
+  - DOMAIN-SUFFIX,viqeo.tv
   - DOMAIN-SUFFIX,xn--c1acbl2abdlkab1og.xn--p1ai
   # other
   - DOMAIN,www.gismeteo.ru
