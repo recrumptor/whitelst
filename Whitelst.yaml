@@ -60,6 +60,19 @@ payload:
   - DOMAIN-SUFFIX,yappy.media
   - DOMAIN-SUFFIX,teleport.media
   - DOMAIN-SUFFIX,mediavitrina.ru
+  - DOMAIN-SUFFIX,1internet.tv
+  - DOMAIN-SUFFIX,5-tv.ru
+  - DOMAIN-SUFFIX,1tv.ru
+  - DOMAIN-SUFFIX,1tv.com
+  - DOMAIN-SUFFIX,friday.ru
+  - DOMAIN-SUFFIX,otr-online.ru
+  - DOMAIN-SUFFIX,webcaster.pro
+  - DOMAIN-SUFFIX,domashniy.ru
+  - DOMAIN-SUFFIX,ntv.ru
+  - DOMAIN-SUFFIX,muz-tv.ru
+  - DOMAIN-SUFFIX,media1.ru
+  
+  
   # VK
   - DOMAIN-KEYWORD,vkvideo
   - DOMAIN-SUFFIX,mail.ru
