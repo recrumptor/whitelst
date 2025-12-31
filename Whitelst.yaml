@@ -54,6 +54,8 @@ payload:
   - DOMAIN-SUFFIX,ritm.media
   - DOMAIN-SUFFIX,trex.media
   - DOMAIN-SUFFIX,yappy.media
+  - DOMAIN-SUFFIX,teleport.media
+  - DOMAIN-SUFFIX,mediavitrina.ru
   # VK
   - DOMAIN-KEYWORD,vkvideo
   - DOMAIN-SUFFIX,mail.ru
