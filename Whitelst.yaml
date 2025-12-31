@@ -68,7 +68,7 @@ payload:
   - DOMAIN-SUFFIX,otr-online.ru
   - DOMAIN-SUFFIX,webcaster.pro
   - DOMAIN-SUFFIX,domashniy.ru
-  - DOMAIN-SUFFIX,ctc.ru
+  # - DOMAIN-SUFFIX,ctc.ru
   - DOMAIN-SUFFIX,ntv.ru
   - DOMAIN-SUFFIX,muz-tv.ru
   - DOMAIN-SUFFIX,media1.ru
@@ -226,7 +226,7 @@ payload:
   - DOMAIN-SUFFIX,sirena-travel.ru
   - DOMAIN-KEYWORD,aeroflot
   - DOMAIN-SUFFIX,citydrive.ru
-  #- DOMAIN-SUFFIX,travelrussia.ru
+  # - DOMAIN-SUFFIX,travelrussia.ru
   - DOMAIN-SUFFIX,travel2moscow.com
   - DOMAIN-SUFFIX,otello.ru
   
