@@ -46,6 +46,8 @@ payload:
   - DOMAIN-SUFFIX,ivi.ru
   - DOMAIN-SUFFIX,wink.ru
   - DOMAIN-SUFFIX,kion.ru
+  - DOMAIN-SUFFIX,zvuk.com
+  - DOMAIN-SUFFIX,restream-media.net
   - DOMAIN-SUFFIX,beeline.tv
   - DOMAIN-SUFFIX,premier.one
   - DOMAIN-SUFFIX,yappy.media
