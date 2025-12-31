@@ -174,11 +174,15 @@ payload:
   - DOMAIN-SUFFIX,rbc.ru
   - DOMAIN-SUFFIX,rbk.ru
   - DOMAIN-SUFFIX,kp.ru
+  - DOMAIN-SUFFIX,kpcdn.net
+  - DOMAIN-SUFFIX,kp.house
   - DOMAIN-SUFFIX,ria.ru
   - DOMAIN-SUFFIX,gazeta.ru
+  - DOMAIN-SUFFIX,eaglecdn.com
   - DOMAIN-SUFFIX,lenta.ru
-  - DOMAIN-SUFFIX,rambler.ru
+  - DOMAIN-KEYWORD,rambler
   - DOMAIN-SUFFIX,iz.ru
+  - DOMAIN-SUFFIX,iz.push4site.com
   - DOMAIN-SUFFIX,tass.ru
   - DOMAIN-SUFFIX,aif.ru
   - DOMAIN-SUFFIX,rg.ru
