@@ -73,7 +73,7 @@ payload:
   - DOMAIN-SUFFIX,media1.ru
   - DOMAIN-SUFFIX,russian.rt.com
   - DOMAIN-SUFFIX,b37mrtl.ru
-  - DOMAIN-SUFFIX,russiatoday.com  
+  - DOMAIN-SUFFIX,ru.russiatoday.com  
   
   # VK
   - DOMAIN-KEYWORD,vkvideo
