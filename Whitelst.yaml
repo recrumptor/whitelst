@@ -42,7 +42,6 @@ payload:
   - DOMAIN-SUFFIX,yota.ru
   # media
   - DOMAIN-KEYWORD,rutube
-  # - DOMAIN-KEYWORD,ngenix
   - DOMAIN-SUFFIX,rtbcdn.ru
   - DOMAIN-SUFFIX,servicecdn.ru
   - DOMAIN-KEYWORD,kinopoisk
@@ -193,6 +192,7 @@ payload:
   - DOMAIN-SUFFIX,galamart.ru
   - DOMAIN,bristol.ru
   - DOMAIN-SUFFIX,rostics.ru
+  # - DOMAIN-KEYWORD,ngenix
   # Yandex
   - DOMAIN-KEYWORD,yandex
   - DOMAIN-KEYWORD,webvisor
@@ -229,7 +229,6 @@ payload:
   - DOMAIN-SUFFIX,rg.ru
   - DOMAIN-SUFFIX,vedomosti.ru
   - DOMAIN-SUFFIX,mk.ru
-  - DOMAIN-SUFFIX,xn--c1acbl2abdlkab1og.xn--p1ai
   - DOMAIN-SUFFIX,russian.rt.com
   - DOMAIN-SUFFIX,b37mrtl.ru
   - DOMAIN-SUFFIX,ru.russiatoday.com 
