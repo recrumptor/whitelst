@@ -5,6 +5,7 @@ payload:
   - DOMAIN-KEYWORD,sovcombank
   - DOMAIN-SUFFIX,halvacard.ru
   - DOMAIN-SUFFIX,cdn.s3torage.ru
+  - DOMAIN-SUFFIX,cdn.mdigital.ru
   - DOMAIN-SUFFIX,mironline.ru
   - DOMAIN-SUFFIX,mirconnect.ru
   - DOMAIN-SUFFIX,t-bank-app.ru
