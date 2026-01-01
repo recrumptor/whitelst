@@ -67,7 +67,7 @@ payload:
   - DOMAIN-SUFFIX,friday.ru
   - DOMAIN-SUFFIX,otr-online.ru
   - DOMAIN-SUFFIX,domashniy.ru
-  - DOMAIN-SUFFIX,ctc.ru
+  - DOMAIN,ctc.ru
   - DOMAIN-SUFFIX,ntv.ru
   - DOMAIN-SUFFIX,muz-tv.ru
   - DOMAIN-SUFFIX,media1.ru
