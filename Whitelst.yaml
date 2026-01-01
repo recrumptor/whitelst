@@ -21,8 +21,7 @@ payload:
   - DOMAIN-SUFFIX,russianpost.ru
   - DOMAIN-SUFFIX,gov.ru
   - DOMAIN-SUFFIX,goskey.ru
-  - DOMAIN-SUFFIX,ro-edu.ru
-  
+   
   # opsos
   - DOMAIN-SUFFIX,megafon.ru
   - DOMAIN-SUFFIX,rt.ru
