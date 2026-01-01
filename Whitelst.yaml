@@ -214,6 +214,7 @@ payload:
   - DOMAIN-SUFFIX,crpt.ru
   - DOMAIN-SUFFIX,xn--80ajghhoc2aj1c8b.xn--p1ai
   - DOMAIN-SUFFIX,timeweb.cloud
+  - DOMAIN-SUFFIX,3gppnetwork.org
   # travel
   - DOMAIN-KEYWORD,2gis
   - DOMAIN-SUFFIX,rzd.ru
