@@ -181,6 +181,7 @@ payload:
   # - DOMAIN-KEYWORD,krasnoeibeloe
   - DOMAIN-SUFFIX,galamart.ru
   - DOMAIN,bristol.ru
+  - DOMAIN-SUFFIX,rostics.ru
   # Yandex
   - DOMAIN-KEYWORD,yandex
   - DOMAIN-KEYWORD,webvisor
