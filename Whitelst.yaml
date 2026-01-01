@@ -29,10 +29,10 @@ payload:
   - DOMAIN-SUFFIX,rt.ru
   - DOMAIN-SUFFIX,beeline.ru
   - DOMAIN-SUFFIX,mts.ru
-  - DOMAIN-SUFFIX,mymts.ru
+  # - DOMAIN-SUFFIX,mymts.ru
   # - DOMAIN-SUFFIX,mtsdengi.ru
   # - DOMAIN-SUFFIX,mts.investments
-  - DOMAIN-SUFFIX,mts-link.ru
+  # - DOMAIN-SUFFIX,mts-link.ru
   - DOMAIN-SUFFIX,cdn.mtscdn.ru
   - DOMAIN-SUFFIX,urentbike.ru
   - DOMAIN-SUFFIX,t2.ru
