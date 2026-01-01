@@ -159,16 +159,18 @@ payload:
   - DOMAIN-KEYWORD,avito
   - DOMAIN-SUFFIX,apteka.ru
   - DOMAIN-SUFFIX,domclick.ru
+  - DOMAIN-SUFFIX,dmclck.ru
   - DOMAIN-SUFFIX,vkusnoitochka.ru
   - DOMAIN-SUFFIX,vkusvill.ru
   - DOMAIN-SUFFIX,auchan.ru
-  - DOMAIN-SUFFIX,myspar.ru
+  - DOMAIN,myspar.ru
   - DOMAIN-SUFFIX,metro-cc.ru
   - DOMAIN-SUFFIX,petrovich.ru
-  - DOMAIN-SUFFIX,lemanapro.ru
-  - DOMAIN-SUFFIX,lmru.tech
+  # - DOMAIN-SUFFIX,lemanapro.ru
+  # - DOMAIN-SUFFIX,lmru.tech
   - DOMAIN-SUFFIX,auto.ru
-  - DOMAIN-SUFFIX,edadeal.ru
+  - DOMAIN-SUFFIX,avto.ru
+  - DOMAIN-KEYWORD,edadeal
   - DOMAIN-SUFFIX,victoria-group.ru
   - DOMAIN-SUFFIX,food.ru
   - DOMAIN-SUFFIX,krasyar.ru
