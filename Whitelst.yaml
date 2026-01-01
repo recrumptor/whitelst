@@ -20,6 +20,9 @@ payload:
   - DOMAIN-SUFFIX,pochta.ru
   - DOMAIN-SUFFIX,russianpost.ru
   - DOMAIN-SUFFIX,gov.ru
+  - DOMAIN-SUFFIX,goskey.ru
+  - DOMAIN-SUFFIX,ro-edu.ru
+  
   # opsos
   - DOMAIN-SUFFIX,megafon.ru
   - DOMAIN-SUFFIX,rt.ru
@@ -71,9 +74,11 @@ payload:
   - DOMAIN-SUFFIX,ntv.ru
   - DOMAIN-SUFFIX,muz-tv.ru
   - DOMAIN-SUFFIX,media1.ru
-  - DOMAIN-SUFFIX,russian.rt.com
-  - DOMAIN-SUFFIX,b37mrtl.ru
-  - DOMAIN-SUFFIX,ru.russiatoday.com  
+  - DOMAIN-SUFFIX,ren.tv
+  - DOMAIN-SUFFIX,clients-cdnnow.ru
+  - DOMAIN-SUFFIX,tv3.ru
+  - DOMAIN-SUFFIX,gpm-content.ru
+   
   
   # VK
   - DOMAIN-KEYWORD,vkvideo
@@ -219,6 +224,9 @@ payload:
   - DOMAIN-SUFFIX,vedomosti.ru
   - DOMAIN-SUFFIX,mk.ru
   - DOMAIN-SUFFIX,xn--c1acbl2abdlkab1og.xn--p1ai
+  - DOMAIN-SUFFIX,russian.rt.com
+  - DOMAIN-SUFFIX,b37mrtl.ru
+  - DOMAIN-SUFFIX,ru.russiatoday.com 
   # other
   - DOMAIN,www.gismeteo.ru
   - DOMAIN-SUFFIX,rustore.ru
