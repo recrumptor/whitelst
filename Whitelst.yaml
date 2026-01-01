@@ -122,6 +122,8 @@ payload:
   - DOMAIN-SUFFIX,x5.ru
   - DOMAIN-SUFFIX,5ka.ru
   - DOMAIN-SUFFIX,x5media.ru
+  - DOMAIN-SUFFIX,x5staff.ru
+  - DOMAIN-SUFFIX,x5food.tech
   - DOMAIN-SUFFIX,x5static.net
   - DOMAIN-SUFFIX,5post.market
   - DOMAIN-SUFFIX,chizhik.club
@@ -133,6 +135,7 @@ payload:
   - DOMAIN-SUFFIX,jx5.ru
   - DOMAIN-SUFFIX,keyx5.ru
   - DOMAIN-SUFFIX,mnogolososya.ru
+  - DOMAIN-SUFFIX,tidacdn.com
   - DOMAIN-SUFFIX,myapelsin.ru
   - DOMAIN-SUFFIX,okolo.app
   - DOMAIN-SUFFIX,perekrestok.ru
