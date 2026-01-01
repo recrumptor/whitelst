@@ -159,7 +159,7 @@ payload:
   - DOMAIN-KEYWORD,avito
   - DOMAIN-SUFFIX,apteka.ru
   - DOMAIN-SUFFIX,domclick.ru
-  - DOMAIN-SUFFIX,dmclck.ru
+  # - DOMAIN-SUFFIX,dmclck.ru
   - DOMAIN-SUFFIX,vkusnoitochka.ru
   - DOMAIN-SUFFIX,vkusvill.ru
   - DOMAIN-SUFFIX,auchan.ru
@@ -173,6 +173,7 @@ payload:
   - DOMAIN-KEYWORD,edadeal
   - DOMAIN-SUFFIX,victoria-group.ru
   - DOMAIN-SUFFIX,food.ru
+  - DOMAIN-SUFFIX,static-food-2.ru
   - DOMAIN-SUFFIX,krasyar.ru
   - DOMAIN-SUFFIX,perekrestok.com
   - DOMAIN-SUFFIX,dixy.ru
