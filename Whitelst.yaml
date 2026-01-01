@@ -253,6 +253,6 @@ payload:
   # - DOMAIN-SUFFIX,travelrussia.ru
   - DOMAIN-SUFFIX,travel2moscow.com
   - DOMAIN-SUFFIX,otello.ru
-  - DOMAIN-SUFFIX,xn--80aaa6addeod5bh0e.xn--p1ai
+  #- DOMAIN-SUFFIX,xn--80aaa6addeod5bh0e.xn--p1ai
   - DOMAIN-SUFFIX,taxsee.com
   
