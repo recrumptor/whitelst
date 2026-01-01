@@ -75,7 +75,7 @@ payload:
   - DOMAIN-SUFFIX,ntv.ru
   - DOMAIN-SUFFIX,muz-tv.ru
   - DOMAIN-SUFFIX,media1.ru
-  - DOMAIN-SUFFIX,ren.tv
+  # - DOMAIN-SUFFIX,ren.tv
   - DOMAIN-SUFFIX,clients-cdnnow.ru
   # - DOMAIN-SUFFIX,tv3.ru
   # - DOMAIN-SUFFIX,gpm-content.ru
