@@ -76,8 +76,11 @@ payload:
   - DOMAIN-SUFFIX,media1.ru
   - DOMAIN-SUFFIX,ren.tv
   - DOMAIN-SUFFIX,clients-cdnnow.ru
-  - DOMAIN-SUFFIX,tv3.ru
-  - DOMAIN-SUFFIX,gpm-content.ru
+  # - DOMAIN-SUFFIX,tv3.ru
+  # - DOMAIN-SUFFIX,gpm-content.ru
+  - DOMAIN-SUFFIX,tnt-online.ru
+  - DOMAIN-SUFFIX,tvc.ru
+  - DOMAIN-SUFFIX,mir24.tv
    
   
   # VK
