@@ -64,7 +64,7 @@ payload:
   - DOMAIN-SUFFIX,teleport.media
   - DOMAIN-SUFFIX,mediavitrina.ru
   - DOMAIN-SUFFIX,1internet.tv
-  - DOMAIN-SUFFIX,5-tv.ru
+  # - DOMAIN-SUFFIX,5-tv.ru
   - DOMAIN-SUFFIX,1tv.ru
   - DOMAIN-SUFFIX,1tv.com
   - DOMAIN-SUFFIX,friday.ru
