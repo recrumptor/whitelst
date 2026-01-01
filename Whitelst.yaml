@@ -37,7 +37,7 @@ payload:
   - DOMAIN-SUFFIX,yota.ru
   # media
   - DOMAIN-KEYWORD,rutube
-  - DOMAIN-KEYWORD,ngenix
+  # - DOMAIN-KEYWORD,ngenix
   - DOMAIN-SUFFIX,rtbcdn.ru
   - DOMAIN-SUFFIX,servicecdn.ru
   - DOMAIN-KEYWORD,kinopoisk
