@@ -176,11 +176,11 @@ payload:
   - DOMAIN-SUFFIX,static-food-2.ru
   - DOMAIN-SUFFIX,krasyar.ru
   - DOMAIN-SUFFIX,dixy.ru
-  - DOMAIN-SUFFIX,av.ru
+  # - DOMAIN-SUFFIX,av.ru
   - DOMAIN-SUFFIX,fix-price.com
-  - DOMAIN-KEYWORD,krasnoeibeloe
+  # - DOMAIN-KEYWORD,krasnoeibeloe
   - DOMAIN-SUFFIX,galamart.ru
-  - DOMAIN-SUFFIX,bristol.ru
+  - DOMAIN,bristol.ru
   # Yandex
   - DOMAIN-KEYWORD,yandex
   - DOMAIN-KEYWORD,webvisor
