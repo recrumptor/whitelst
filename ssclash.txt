@@ -2,20 +2,24 @@ mode: rule
 ipv6: false
 log-level: error
 allow-lan: false
+port: 7890
+mixed-port: 10801
 tproxy-port: 7894
 unified-delay: true
 tcp-concurrent: true
-external-controller: 0.0.0.0:9090
+external-controller: 192.168.2.1:9090
 external-ui: ./ui
 external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
 
-#hosts:
-  #ntc.party: 130.255.77.28
- 
+hosts:
+  ntc.party: 130.255.77.28
+  
+
 dns:
   enable: true
   listen: 0.0.0.0:7874
   ipv6: false
+  respect-rules: true
   default-nameserver:
     - 77.88.8.8
     - 77.88.8.1
@@ -24,14 +28,15 @@ dns:
   proxy-server-nameserver:
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query
+  
     
 keep-alive-idle: 60
 keep-alive-interval: 15
+find-process-mode: off
 
 profile:
   store-selected: true
-  store-fake-ip: true
-  #tracing: true
+ 
 
 routing-mark: 2
 
@@ -45,8 +50,7 @@ sniffer:
       override-destination: true
     TLS:
       ports: [443, 8443]
-    QUIC:
-      ports: [443, 8443]
+    
       
   skip-domain:
     - "Mijia Cloud"
@@ -57,53 +61,102 @@ sniffer:
    
 proxy-providers:
 
-  RU RUSIA:
+  AL ALIVE:
     type: http
-    url: "https://raw.githubusercontent.com/zieng2/wl/main/vless_universal.txt"
-    path: ./proxy_providers/ru.yaml
-    interval: 86400
+    url: "https://raw.githubusercontent.com/zieng2/wl/refs/heads/main/vless_lite.txt"
+    path: ./proxy_providers/al.yaml
+    interval: 28800
+    proxy: SUB4
     header:
       User-Agent:
       - "FlClash"
       x-hwid:
       - "OpenWrt"
     health-check:
-      enable: false
-      url: https://cp.cloudflare.com/generate_204
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
       interval: 300
       timeout: 5000
       lazy: true
       expected-status: 204
- 
-    
+      
+  ST START:
+    type: file
+    path: ./st.yaml
+    format: text
+    header:
+      User-Agent:
+      - "FlClash"
+      x-hwid:
+      - "OpenWrt"
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      interval: 300
+      timeout: 5000
+      lazy: true
+      expected-status: 204
+
 proxy-groups:
 
   - name: SUB1
     type: url-test
-    url: https://gstatic.com/generate_204
+    url: http://cp.cloudflare.com/generate_204
     expected-status: 204
-    interval: 300
+    #interval: 300
+    tolerance: 60
     lazy: true
-    use: [RU RUSIA]
-    filter: "Timeweb|Aeza|GCN"
+    use: 
+    - AL ALIVE
+    filter: "🇷🇺"
+    
 
   - name: SUB2
     type: url-test
-    url: https://gstatic.com/generate_204
+    url: http://cp.cloudflare.com/generate_204
     expected-status: 204
-    interval: 300
+    tolerance: 60
+    #interval: 300
     lazy: true
-    use: [RU RUSIA]
-    filter: "Germany|Finland|Netherland"
+    use: 
+    - AL ALIVE
+    exclude-filter: "Yandex — #"
     
+  - name: SUB3
+    type: url-test
+    url: http://cp.cloudflare.com/generate_204
+    expected-status: 204
+    tolerance: 60
+    #interval: 300
+    lazy: true
+    use: 
+    - AL ALIVE
+    exclude-filter: "🇷🇺"
+    
+  - name: SUB4
+    type: url-test
+    #url: http://cp.cloudflare.com/generate_204
+    #expected-status: 204
+    tolerance: 60
+    #interval: 300
+    lazy: true
+    use: 
+    - ST START
   
 rule-providers:
 
+  awavenue_ads:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml"
+    path: ./ruleset/awavenue.yaml
+    interval: 86400
+    
   geo-blocked:
     behavior: domain
     type: http
     format: text
-    url: 'https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/geo'
+    url: 'https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/geo.txt'
     interval: 86400
     path: ./ruleset/geo-blocked.yaml
     
@@ -115,54 +168,35 @@ rule-providers:
     interval: 86400
     path: ./ruleset/gemini.yaml
     
-  openai:
+  whitelist:
     behavior: classical
     type: http
     format: yaml
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/OpenAI/OpenAI.yaml"
+    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/Whitelst.yaml"
     interval: 86400
-    path: ./ruleset/openai.yaml
+    path: ./ruleset/whitelist.yaml
+  
+  youtube:
+    behavior: classical
+    type: http
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml"
+    interval: 86400
+    path: ./ruleset/youtube.yaml
+
+
+
 
 rules:
-  - RULE-SET,gemini,SUB2
-  - RULE-SET,openai,SUB2
-  - DOMAIN-KEYWORD,ozon,DIRECT
-  - DOMAIN-KEYWORD,megafon,DIRECT
-  - DOMAIN-KEYWORD,avito,DIRECT
-  - DOMAIN-KEYWORD,rutube,DIRECT
-  - DOMAIN-KEYWORD,vkvideo,DIRECT
-  - DOMAIN-KEYWORD,wildberries,DIRECT
-  - DOMAIN-KEYWORD,magnit,DIRECT
-  - DOMAIN-KEYWORD,gosuslugi,DIRECT
-  - DOMAIN-KEYWORD,yandex,DIRECT
-  - DOMAIN-SUFFIX,mail.ru,DIRECT
-  - DOMAIN-SUFFIX,vk.com,DIRECT
-  - DOMAIN-SUFFIX,vk.ru,DIRECT
-  - DOMAIN-SUFFIX,ok.ru,DIRECT
-  - DOMAIN-SUFFIX,rzd.ru,DIRECT
-  - DOMAIN-SUFFIX,rustore.ru,DIRECT
-  - DOMAIN-SUFFIX,alfabank.ru,DIRECT
-  - DOMAIN-SUFFIX,nalog.ru,DIRECT
-  - DOMAIN-SUFFIX,gov.ru,DIRECT
-  - DOMAIN-SUFFIX,gismeteo.ru,DIRECT
-  - DOMAIN-SUFFIX,gismeteo.net,DIRECT
-  - DOMAIN-SUFFIX,vk-portal.net,DIRECT
-  - DOMAIN-SUFFIX,okcdn.ru,DIRECT
-  - DOMAIN-SUFFIX,dzen.ru,DIRECT
-  - DOMAIN-SUFFIX,ya.ru,DIRECT
-  - DOMAIN-SUFFIX,dzeninfra.ru,DIRECT
-  - DOMAIN-SUFFIX,imgsmail.ru,DIRECT
-  - DOMAIN-SUFFIX,rbc.ru,DIRECT
-  - DOMAIN-SUFFIX,rbk.ru,DIRECT
-  - DOMAIN-SUFFIX,vkuser.net,DIRECT
-  - DOMAIN-SUFFIX,wb.ru,DIRECT
-  - DOMAIN-SUFFIX,wbbasket.ru,DIRECT
-  - DOMAIN-SUFFIX,userapi.com,DIRECT
-  - DOMAIN-SUFFIX,apteka.ru,DIRECT
-  - DOMAIN-SUFFIX,sovcombank.ru,DIRECT
-  - DOMAIN-SUFFIX,halvacard.ru,DIRECT
-  - DOMAIN-SUFFIX,mironline.ru,DIRECT
+
+  
+  - RULE-SET,awavenue_ads,REJECT
+  - DOMAIN-SUFFIX,vigo.one,REJECT
+  - DOMAIN-SUFFIX,uxfeedback.ru,REJECT
   - DOMAIN-SUFFIX,tns-counter.ru,REJECT
-  - DOMAIN-SUFFIX,vk-analytics.ru,REJECT
-  - RULE-SET,geo-blocked,SUB2
+  - RULE-SET,youtube,SUB2
+  - RULE-SET,gemini,SUB3
+  - RULE-SET,whitelist,DIRECT
+  - DOMAIN-SUFFIX,ntc.party,SUB3
+  - DOMAIN-KEYWORD,google,SUB2
+  - RULE-SET,geo-blocked,SUB3
   - MATCH,SUB1
