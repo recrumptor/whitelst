@@ -66,6 +66,7 @@ proxy-providers:
     url: "https://raw.githubusercontent.com/zieng2/wl/refs/heads/main/vless_lite.txt"
     path: ./proxy_providers/al.yaml
     interval: 28800
+    filter: "🇷🇺|Germany|Netherlands|Finland"
     proxy: SUB4
     header:
       User-Agent:
