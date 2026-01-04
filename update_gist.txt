@@ -1,4 +1,4 @@
-# скрипт для проверки "живых" прокси в подписке ssclash
+# скрипт для проверки "стабильных" прокси в подписке ssclash
 # введите в ssh в терминале роутера 
 
 cat << 'EOF' > /opt/clash/update_gist.sh
@@ -6,7 +6,7 @@ cat << 'EOF' > /opt/clash/update_gist.sh
 
 > /tmp/links_raw.txt
 
-# Получаем только стабильные прокси (5 раз подряд <= 200ms)
+# Получаем только стабильные прокси (5 проверок clash подряд <= 200ms)
 # 1. Формируем список ЗАКОДИРОВАННЫХ имен (каждое на новой строке)
 curl -s "http://192.168.1.1:9090/providers/proxies/AL%20ALIVE" | \
 jq -r '.proxies[] | 
@@ -29,3 +29,8 @@ EOF
 chmod +x /opt/clash/update_gist.sh
 # Запускаем проверку
 # /opt/clash/update_gist.sh
+# Задаем задания в Scheduled Tasks,  у меня в примере поиск каждые 60 минут список "стабильных" прокси 
+# и запись ежедневно  8.00 полученный список в стартовый прокси
+
+0 8 * * * [ -s "/tmp/links_raw.txt" ] && cp "/tmp/links_raw.txt" "/opt/clash/st.yaml" >/dev/null 2>&1
+*/60 * * * * /opt/clash/update_gist.sh >/dev/null 2>&1
