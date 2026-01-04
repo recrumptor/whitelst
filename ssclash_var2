@@ -1,0 +1,220 @@
+mode: rule
+ipv6: false
+log-level: error
+allow-lan: false
+port: 7890
+mixed-port: 10801
+tproxy-port: 7894
+unified-delay: true
+tcp-concurrent: true
+external-controller: 192.168.2.1:9090 # поменяйте на ваш IP роутера
+external-ui: ./ui
+external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
+
+hosts:
+  ntc.party: 130.255.77.28
+  
+
+dns:
+  enable: true
+  listen: 0.0.0.0:7874
+  ipv6: false
+  respect-rules: true
+  default-nameserver:
+    - 77.88.8.8
+    - 77.88.8.1
+  nameserver:
+    - https://common.dot.dns.yandex.net/dns-query
+  proxy-server-nameserver:
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
+  
+    
+keep-alive-idle: 60
+keep-alive-interval: 15
+find-process-mode: off
+
+profile:
+  store-selected: true
+ 
+
+routing-mark: 2
+
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    
+      
+  skip-domain:
+    - "Mijia Cloud"
+    - '+.lan'
+    - '+.local'
+    - '+.push.apple.com'
+    - '+.apple.com'
+    
+proxies:
+
+  - name: 🇳🇱 Proton
+    dialer-proxy: SUB1
+    type: wireguard
+    private-key: 6MXDbsicixKQ2jRfxxxxZ3lMHH1n1cDTnlnyDT1QJG8= # поменяйте на ваш ключ!
+    server: 190.2.149.68 # поменяйте на ваш адрес!
+    port: 51820
+    ip: 10.2.0.2
+    public-key: 7NjSYlLYNuMradtXnyxxxxQa8gM/2hJm5YJ/jYSWoDo= # поменяйте на ваш ключ!
+    allowed-ips: ['0.0.0.0/0']
+    udp: true
+    mtu: 1280
+    remote-dns-resolve: true
+    #dns: [10.2.0.1]
+    
+  - name: 🇷🇺 WARP
+    dialer-proxy: SUB1
+    type: wireguard
+    private-key: Itm/1gfajrplNj/W1+4xxxxyEd/AzgbD8knSuaaLHxU= # поменяйте на ваш ключ из генератора!
+    server: 162.159.192.1
+    port: 500
+    ip: 172.16.0.2
+    public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo= 
+    allowed-ips: ['0.0.0.0/0']
+    udp: true
+    mtu: 1280
+    remote-dns-resolve: true
+    #dns: [1.1.1.1, 1.0.0.1]
+
+ 
+proxy-providers:
+
+  AL ALIVE:
+    type: http
+    url: "https://raw.githubusercontent.com/zieng2/wl/refs/heads/main/vless_lite.txt"
+    path: ./proxy_providers/al.yaml
+    interval: 28800
+    filter: "Yandex"
+    proxy: SUB4
+    
+    header:
+      User-Agent:
+      - "FlClash"
+      x-hwid:
+      - "OpenWrt"
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      interval: 300
+      timeout: 5000
+      lazy: true
+      expected-status: 204
+      
+  ST START:
+    type: file
+    path: ./st.yaml
+    format: text
+    header:
+      User-Agent:
+      - "FlClash"
+      x-hwid:
+      - "OpenWrt"
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      interval: 300
+      timeout: 5000
+      lazy: true
+      expected-status: 204
+
+proxy-groups:
+
+  - name: SUB1
+    type: url-test
+    url: http://cp.cloudflare.com/generate_204
+    expected-status: 204
+    #interval: 300
+    tolerance: 60
+    lazy: true
+    use: 
+    - AL ALIVE
+ 
+     
+  - name: SUB4
+    type: url-test
+    url: http://cp.cloudflare.com/generate_204
+    expected-status: 204
+    tolerance: 60
+    #interval: 300
+    lazy: true
+    use: 
+    - ST START
+    
+  - name: PROXY
+    type: select
+    proxies: [🇳🇱 Proton]
+    url: http://cp.cloudflare.com/generate_204
+    interval: 300
+    
+  - name: WARP
+    type: select
+    proxies: [🇷🇺 WARP]
+    url: http://cp.cloudflare.com/generate_204
+    interval: 300
+  
+rule-providers:
+
+  awavenue_ads:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml"
+    path: ./ruleset/awavenue.yaml
+    interval: 86400
+    
+  geo-blocked:
+    behavior: domain
+    type: http
+    format: text
+    url: 'https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/geo.txt'
+    interval: 86400
+    path: ./ruleset/geo-blocked.yaml
+    
+  gemini:
+    behavior: classical
+    type: http
+    format: yaml
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml"
+    interval: 86400
+    path: ./ruleset/gemini.yaml
+    
+  whitelist:
+    behavior: classical
+    type: http
+    format: yaml
+    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/Whitelst.yaml"
+    interval: 86400
+    path: ./ruleset/whitelist.yaml
+  
+  youtube:
+    behavior: classical
+    type: http
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml"
+    interval: 86400
+    path: ./ruleset/youtube.yaml
+
+rules:
+
+  - RULE-SET,awavenue_ads,REJECT
+  - DOMAIN-SUFFIX,vigo.one,REJECT
+  - DOMAIN-SUFFIX,uxfeedback.ru,REJECT
+  - DOMAIN-SUFFIX,tns-counter.ru,REJECT
+  - RULE-SET,youtube,WARP
+  - RULE-SET,gemini,PROXY
+  - RULE-SET,whitelist,DIRECT
+  - DOMAIN-SUFFIX,ntc.party,PROXY
+  - DOMAIN-KEYWORD,google,WARP
+  - RULE-SET,geo-blocked,PROXY
+  - MATCH,SUB1
