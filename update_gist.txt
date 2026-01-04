@@ -1,0 +1,31 @@
+# скрипт для проверки "живых" прокси в подписке ssclash
+# введите в ssh в терминале роутера 
+
+cat << 'EOF' > /opt/clash/update_gist.sh
+#!/bin/sh
+
+> /tmp/links_raw.txt
+
+# Получаем только стабильные прокси (5 раз подряд <= 200ms)
+# 1. Формируем список ЗАКОДИРОВАННЫХ имен (каждое на новой строке)
+curl -s "http://192.168.1.1:9090/providers/proxies/AL%20ALIVE" | \
+jq -r '.proxies[] | 
+  select(.history != null and (.history | length >= 5) and (.history[-5:] | all(.delay > 0 and .delay <= 200))) | 
+  .name | @uri' > /tmp/names_to_find.txt
+
+# 2. Ищем все эти имена в конфиге за один проход
+
+awk '
+  NR==FNR { gsub(/\r/, "", $0); names[$0]=1; next }
+  {
+    line = $0; gsub(/\r/, "", line)
+    n = split(line, a, "#")
+    if (a[n] in names) print $0
+  }
+' /tmp/names_to_find.txt /opt/clash/proxy_providers/al.yaml > /tmp/links_raw.txt
+
+EOF
+
+chmod +x /opt/clash/update_gist.sh
+# Запускаем проверку
+# /opt/clash/update_gist.sh
