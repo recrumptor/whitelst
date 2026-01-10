@@ -236,6 +236,8 @@ payload:
   # other
   - DOMAIN,www.gismeteo.ru
   - DOMAIN-SUFFIX,rustore.ru
+  - DOMAIN-SUFFIX,mindbox.ru
+  - DOMAIN-SUFFIX,yadro.ru
   - DOMAIN-SUFFIX,markirovka.ru
   - DOMAIN-SUFFIX,crpt.ru
   - DOMAIN-SUFFIX,xn--80ajghhoc2aj1c8b.xn--p1ai
