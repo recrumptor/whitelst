@@ -9,8 +9,8 @@ payload:
   - DOMAIN-SUFFIX,mironline.ru
   - DOMAIN-SUFFIX,mirconnect.ru
   - DOMAIN-SUFFIX,t-bank-app.ru
-  - DOMAIN-KEYWORD,tbank
-  - DOMAIN-KEYWORD,tinkoff
+  - DOMAIN-SUFFIX,tbank.ru
+  - DOMAIN-SUFFIX,tinkoff.ru
   - DOMAIN-SUFFIX,cdn-tinkoff.ru
   - DOMAIN-SUFFIX,finuslugi.ru
   - DOMAIN-SUFFIX,moex.com
