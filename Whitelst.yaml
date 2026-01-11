@@ -3,6 +3,7 @@ payload:
   # banki
   - DOMAIN-SUFFIX,alfabank.ru
   - DOMAIN-KEYWORD,sovcombank
+  - DOMAIN-KEYWORD,kaspersky
   # - DOMAIN-SUFFIX,halvacard.ru
   - DOMAIN-SUFFIX,cdn.s3torage.ru
   - DOMAIN-SUFFIX,cdn.mdigital.ru
