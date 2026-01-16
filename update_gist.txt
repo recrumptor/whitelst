@@ -30,7 +30,7 @@ chmod +x /opt/clash/update_gist.sh
 # Запускаем проверку
 # /opt/clash/update_gist.sh
 # Задаем задания в Scheduled Tasks,  у меня в примере поиск каждые 60 минут список "стабильных" прокси 
-# и запись ежедневно  8.00 полученный список в стартовый прокси
+# и запись ежедневно  8.05 полученный список в стартовый прокси
 
-0 8 * * * [ -s "/tmp/links_raw.txt" ] && cp "/tmp/links_raw.txt" "/opt/clash/st.yaml" >/dev/null 2>&1
+05 8 * * * [ -s "/tmp/links_raw.txt" ] && cp "/tmp/links_raw.txt" "/opt/clash/st.yaml" >/dev/null 2>&1
 */60 * * * * /opt/clash/update_gist.sh >/dev/null 2>&1
