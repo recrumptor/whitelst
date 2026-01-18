@@ -16,22 +16,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download and Format List
+      - name: Download and Format Lists
         run: |
-          # Скачиваем оригинальный список
-          curl -sSL https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Categories/geoblock.lst -o raw_domains.txt
-          
-          # Преобразуем формат: добавляем "+." в начало каждой непустой строки
-          # Также удаляем лишние пробелы и пустые строки, если они есть
-          sed -E 's/^([a-zA-Z0-9])/\+\.\1/' raw_domains.txt > geo.txt
-          
-          # Удаляем временный файл
-          rm raw_domains.txt
+          declare -A FILES=(
+            ["geo"]="https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Categories/geoblock.lst"
+            ["GoogleAI"]="https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Services/google_ai.lst"
+            ["Youtube"]="https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Services/youtube.lst"
+          )
+
+          for NAME in "${!FILES[@]}"; do
+            URL="${FILES[$NAME]}"
+            TMP="raw_${NAME}.txt"
+            OUT="${NAME}.txt"
+
+            echo "Processing $NAME from $URL"
+
+            curl -sSL "$URL" -o "$TMP"
+            sed -E 's/^([a-zA-Z0-9])/\+\.\1/' "$TMP" > "$OUT"
+            rm "$TMP"
+          done
+
 
       - name: Commit and Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add geo.txt
+          git add .
           git commit -m "Daily update: $(date +'%Y-%m-%d')" || exit 0
           git push
