@@ -7,6 +7,11 @@ jobs:
   trace:
     runs-on: ubuntu-latest
     steps:
+      - name: Install network tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y traceroute mtr-tiny iputils-ping
+          
       - name: Traceroute ICMP
         run: |
           traceroute 37.140.193.1 || true
