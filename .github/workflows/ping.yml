@@ -1,0 +1,20 @@
+name: Traceroute test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  trace:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Traceroute ICMP
+        run: |
+          traceroute 37.140.193.1 || true
+
+      - name: Traceroute TCP 443
+        run: |
+          traceroute -T -p 443 37.140.193.1 || true
+
+      - name: MTR
+        run: |
+          mtr -rwzc 20 37.140.193.1 || true
