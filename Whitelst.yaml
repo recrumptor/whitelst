@@ -13,7 +13,7 @@ payload:
   - DOMAIN-SUFFIX,tinkoff.ru
   - DOMAIN-SUFFIX,cdn-tinkoff.ru
   - DOMAIN-SUFFIX,finuslugi.ru
-  - DOMAIN-SUFFIX,moex.com
+  # - DOMAIN-SUFFIX,moex.com
   - DOMAIN-SUFFIX,banki.ru
   # gov
   - DOMAIN-KEYWORD,gosuslugi
