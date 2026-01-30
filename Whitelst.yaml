@@ -8,10 +8,10 @@ payload:
   - DOMAIN-SUFFIX,cdn.mdigital.ru
   - DOMAIN-SUFFIX,mironline.ru
   - DOMAIN-SUFFIX,mirconnect.ru
-  - DOMAIN-SUFFIX,t-bank-app.ru
-  - DOMAIN-SUFFIX,tbank.ru
-  - DOMAIN-SUFFIX,tinkoff.ru
-  - DOMAIN-SUFFIX,cdn-tinkoff.ru
+  # - DOMAIN-SUFFIX,t-bank-app.ru
+  # - DOMAIN-SUFFIX,tbank.ru
+  # - DOMAIN-SUFFIX,tinkoff.ru
+  # - DOMAIN-SUFFIX,cdn-tinkoff.ru
   - DOMAIN-SUFFIX,finuslugi.ru
   # - DOMAIN-SUFFIX,moex.com
   - DOMAIN-SUFFIX,banki.ru
