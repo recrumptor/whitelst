@@ -22,6 +22,7 @@ jobs:
             ["geo"]="https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Categories/geoblock.lst"
             ["GoogleAI"]="https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Services/google_ai.lst"
             ["Youtube"]="https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Services/youtube.lst"
+            ["google_play"]="https://raw.githubusercontent.com/itdoginfo/allow-domains/refs/heads/main/Services/google_play.lst"
           )
 
           for NAME in "${!FILES[@]}"; do
