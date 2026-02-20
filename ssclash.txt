@@ -2,8 +2,6 @@ mode: rule
 ipv6: false
 log-level: error
 allow-lan: false
-port: 7890
-mixed-port: 10801
 tproxy-port: 7894
 unified-delay: true
 tcp-concurrent: true
@@ -19,17 +17,12 @@ dns:
   enable: true
   listen: 0.0.0.0:7874
   ipv6: false
-  respect-rules: true
   default-nameserver:
     - 77.88.8.8
     - 77.88.8.1
   nameserver:
     - https://common.dot.dns.yandex.net/dns-query
-  proxy-server-nameserver:
-    - https://cloudflare-dns.com/dns-query
-    - https://dns.google/dns-query
-  
-    
+   
 keep-alive-idle: 60
 keep-alive-interval: 15
 find-process-mode: off
@@ -41,7 +34,7 @@ profile:
 routing-mark: 2
 
 sniffer:
-  enable: true
+  enable: false
   force-dns-mapping: true
   parse-pure-ip: true
   sniff:
