@@ -236,7 +236,7 @@ payload:
   - DOMAIN-SUFFIX,b37mrtl.ru
   - DOMAIN-SUFFIX,ru.russiatoday.com 
   # other
-  - DOMAIN,www.gismeteo.ru
+  # - DOMAIN,www.gismeteo.ru
   - DOMAIN-SUFFIX,rustore.ru
   - DOMAIN,mindbox.ru
   # - DOMAIN-SUFFIX,yadro.ru
