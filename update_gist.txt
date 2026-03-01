@@ -34,3 +34,9 @@ chmod +x /opt/clash/update_gist.sh
 
 05 8 * * * [ -s "/tmp/links_raw.txt" ] && cp "/tmp/links_raw.txt" "/opt/clash/st.yaml" >/dev/null 2>&1
 */60 * * * * /opt/clash/update_gist.sh >/dev/null 2>&1
+
+export http_proxy=http://127.0.0.1:7890
+export https_proxy=http://127.0.0.1:7890
+opkg update
+opkg install jq
+
