@@ -29,6 +29,7 @@ payload:
   # opsos
   - DOMAIN-SUFFIX,megafon.ru
   - DOMAIN-SUFFIX,rt.ru
+  - DOMAIN-SUFFIX,qms.ru
   - DOMAIN-SUFFIX,beeline.ru
   - DOMAIN-SUFFIX,mts.ru
   # - DOMAIN-SUFFIX,mymts.ru
