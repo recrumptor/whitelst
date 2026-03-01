@@ -2,6 +2,7 @@ mode: rule
 ipv6: false
 log-level: error
 allow-lan: false
+port: 7890
 tproxy-port: 7894
 unified-delay: true
 tcp-concurrent: true
