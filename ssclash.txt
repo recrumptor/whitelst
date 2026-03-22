@@ -96,7 +96,7 @@ proxy-providers:
 
   BE BENSS:
     type: http
-    url: "https://gitverse.ru/Benss/Vless/content/master/new_file"
+    url: "https://gitverse.ru/api/repos/Benss/Vless/raw/branch/master/new_file"
     path: ./proxy_providers/be.yaml
     interval: 28800
     header:
