@@ -57,12 +57,11 @@ proxy-providers:
 
   AL ALIVE:
     type: http
-    #url: "https://raw.githubusercontent.com/zieng2/wl/refs/heads/main/vless_lite.txt"
-    url: "https://gitverse.ru/Benss/Vless/content/master/new_file"
+    url: "https://raw.githubusercontent.com/zieng2/wl/refs/heads/main/vless_lite.txt"
     path: ./proxy_providers/al.yaml
     interval: 28800
-    filter: "🇷🇺|Germany|Netherlands|Finland"
-    # proxy: SUB4  отключил т.к. gitverse
+    #filter: "🇷🇺|Germany|Netherlands|Finland"
+    proxy: SUB4
     header:
       User-Agent:
       - "FlClash"
@@ -81,6 +80,25 @@ proxy-providers:
     type: file
     path: ./st.yaml
     format: text
+    header:
+      User-Agent:
+      - "FlClash"
+      x-hwid:
+      - "OpenWrt"
+    health-check:
+      enable: true
+      #url: http://cp.cloudflare.com/generate_204
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+      timeout: 5000
+      lazy: true
+      expected-status: 204
+
+  BE BENSS:
+    type: http
+    url: "https://gitverse.ru/Benss/Vless/content/master/new_file"
+    path: ./proxy_providers/be.yaml
+    interval: 28800
     header:
       User-Agent:
       - "FlClash"
@@ -135,14 +153,15 @@ proxy-groups:
     exclude-filter: "🇷🇺"
     
   - name: SUB4
-    type: url-test
+    type: fallback
     #url: http://cp.cloudflare.com/generate_204
     #expected-status: 204
-    tolerance: 60
+    #tolerance: 60
     #interval: 300
     lazy: true
     use: 
     - ST START
+    - BE BENSS
   
 rule-providers:
 
