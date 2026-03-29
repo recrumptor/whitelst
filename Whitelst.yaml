@@ -3,10 +3,12 @@ payload:
   # banki
   - DOMAIN-SUFFIX,alfabank.ru
   - DOMAIN-SUFFIX,psbank.ru
+  - DOMAIN-SUFFIX,psblog.ru
   - DOMAIN-SUFFIX,gazprombank.ru
   - DOMAIN-SUFFIX,gazprompay.ru
   - DOMAIN-SUFFIX,gpb.ru
   - DOMAIN-SUFFIX,vtb.ru
+  - DOMAIN-SUFFIX,vtb.com
   # - DOMAIN-KEYWORD,sovcombank
   # - DOMAIN-SUFFIX,halvacard.ru
   - DOMAIN-SUFFIX,cdn.s3torage.ru
@@ -291,14 +293,16 @@ payload:
   - DOMAIN-SUFFIX,jivochat.com
   - DOMAIN-SUFFIX,jivosite.com
   - DOMAIN-SUFFIX,tamtam.chat
+  - DOMAIN-SUFFIX,topdelivery.ru
+  - DOMAIN-SUFFIX,usedesk.ru
   
   # travel
   - DOMAIN-KEYWORD,2gis
   - DOMAIN-SUFFIX,rzd.ru
   - DOMAIN-SUFFIX,rzd-bonus.ru
   - DOMAIN-SUFFIX,tutu.ru
-  - DOMAIN-SUFFIX,tu-tu.ru
-  - DOMAIN-SUFFIX,taximaxim.ru
+  # - DOMAIN-SUFFIX,tu-tu.ru
+  # - DOMAIN-SUFFIX,taximaxim.ru
   - DOMAIN-SUFFIX,flypobeda.ru
   - DOMAIN-SUFFIX,sirena-travel.ru
   - DOMAIN-KEYWORD,aeroflot
