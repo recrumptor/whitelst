@@ -271,10 +271,11 @@ payload:
   - DOMAIN-KEYWORD,bitrix
   - DOMAIN-SUFFIX,getcourse.ru
   - DOMAIN-KEYWORD,otm-r
-  - DOMAIN-KEYWORD,gpmdi.ru
-  - DOMAIN-KEYWORD,dellin.ru
+  - DOMAIN-SUFFIX,gpmdi.ru
+  - DOMAIN-SUFFIX,dellin.ru
   - DOMAIN-SUFFIX,hh.ru
   - DOMAIN-SUFFIX,zentotem.net
+  - DOMAIN-KEYWORD,kaspersky
   # travel
   - DOMAIN-KEYWORD,2gis
   - DOMAIN-SUFFIX,rzd.ru
