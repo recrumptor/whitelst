@@ -4,6 +4,7 @@ payload:
   - DOMAIN-SUFFIX,alfabank.ru
   - DOMAIN-SUFFIX,psbank.ru
   - DOMAIN-SUFFIX,gazprombank.ru
+  - DOMAIN-SUFFIX,gazprompay.ru
   - DOMAIN-SUFFIX,gpb.ru
   - DOMAIN-SUFFIX,vtb.ru
   # - DOMAIN-KEYWORD,sovcombank
@@ -215,6 +216,7 @@ payload:
   - DOMAIN-SUFFIX,megamarket.ru
   - DOMAIN-SUFFIX,lenta.com
   - DOMAIN-KEYWORD,youla
+  - DOMAIN-SUFFIX,dodopizza.ru
   
   # Yandex
   - DOMAIN-KEYWORD,yandex
@@ -263,7 +265,7 @@ payload:
   - DOMAIN-SUFFIX,markirovka.ru
   - DOMAIN-SUFFIX,crpt.ru
   - DOMAIN-SUFFIX,xn--80ajghhoc2aj1c8b.xn--p1ai
-  - DOMAIN-SUFFIX,timeweb.cloud
+  - DOMAIN-KEYWORD,timeweb
   # - DOMAIN-SUFFIX,3gppnetwork.org
   - DOMAIN-SUFFIX,apptracer.ru
   - DOMAIN-SUFFIX,fotostrana.ru
@@ -280,6 +282,16 @@ payload:
   - DOMAIN-SUFFIX,1cfresh.co
   - DOMAIN-SUFFIX,1c.ru
   - DOMAIN-SUFFIX,1cloud.ru
+  - DOMAIN-SUFFIX,banka-ui.dev
+  - DOMAIN-SUFFIX,credistory.ru
+  - DOMAIN-SUFFIX,csat.ru
+  - DOMAIN-SUFFIX,fastvps.ru
+  - DOMAIN-SUFFIX,memealerts.com
+  - DOMAIN-SUFFIX,jivo.ru
+  - DOMAIN-SUFFIX,jivochat.com
+  - DOMAIN-SUFFIX,jivosite.com
+  - DOMAIN-SUFFIX,tamtam.chat
+  
   # travel
   - DOMAIN-KEYWORD,2gis
   - DOMAIN-SUFFIX,rzd.ru
