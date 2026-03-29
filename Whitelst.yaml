@@ -27,11 +27,17 @@ payload:
   - DOMAIN-SUFFIX,russianpost.ru
   - DOMAIN-SUFFIX,gov.ru
   - DOMAIN-SUFFIX,goskey.ru
+  - DOMAIN-SUFFIX,uchi.ru
+  - DOMAIN-SUFFIX,dnevnik.ru
+  - DOMAIN-SUFFIX,nspk.ru
+  - DOMAIN-SUFFIX,russiacalling.com
+  - DOMAIN-SUFFIX,emias.info
    
   # opsos
   - DOMAIN-SUFFIX,megafon.ru
   - DOMAIN-SUFFIX,gitverse.ru
   - DOMAIN-SUFFIX,rt.ru
+  - DOMAIN-SUFFIX,dom.ru
   - DOMAIN-SUFFIX,qms.ru
   - DOMAIN-SUFFIX,beeline.ru
   - DOMAIN-SUFFIX,mts.ru
@@ -200,6 +206,15 @@ payload:
   - DOMAIN,bristol.ru
   - DOMAIN-SUFFIX,rostics.ru
   # - DOMAIN-KEYWORD,ngenix
+  - DOMAIN-SUFFIX,komus.ru
+  - DOMAIN-SUFFIX,goldapple.ru
+  - DOMAIN-SUFFIX,playerok.com
+  - DOMAIN-SUFFIX,samokat.ru
+  - DOMAIN-SUFFIX,kuper.ru
+  - DOMAIN-SUFFIX,megamarket.ru
+  - DOMAIN-SUFFIX,lenta.com
+  - DOMAIN-KEYWORD,youla
+  
   # Yandex
   - DOMAIN-KEYWORD,yandex
   - DOMAIN-KEYWORD,webvisor
@@ -249,6 +264,17 @@ payload:
   - DOMAIN-SUFFIX,xn--80ajghhoc2aj1c8b.xn--p1ai
   - DOMAIN-SUFFIX,timeweb.cloud
   # - DOMAIN-SUFFIX,3gppnetwork.org
+  - DOMAIN-SUFFIX,apptracer.ru
+  - DOMAIN-SUFFIX,fotostrana.ru
+  - DOMAIN-SUFFIX,atomy.ru
+  - DOMAIN-SUFFIX,upravel.com
+  - DOMAIN-KEYWORD,bitrix
+  - DOMAIN-SUFFIX,getcourse.ru
+  - DOMAIN-KEYWORD,otm-r
+  - DOMAIN-KEYWORD,gpmdi.ru
+  - DOMAIN-KEYWORD,dellin.ru
+  - DOMAIN-SUFFIX,hh.ru
+  - DOMAIN-SUFFIX,zentotem.net
   # travel
   - DOMAIN-KEYWORD,2gis
   - DOMAIN-SUFFIX,rzd.ru
@@ -263,4 +289,5 @@ payload:
   # - DOMAIN-SUFFIX,travelrussia.ru
   - DOMAIN-SUFFIX,travel2moscow.com
   - DOMAIN-SUFFIX,otello.ru
+  - DOMAIN-SUFFIX,gorodpay.ru
 
