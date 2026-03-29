@@ -19,6 +19,7 @@ payload:
   - DOMAIN-SUFFIX,finuslugi.ru
   - DOMAIN-SUFFIX,moex.com
   - DOMAIN-SUFFIX,banki.ru
+  - DOMAIN-SUFFIX,gorodpay.ru
   # gov
   - DOMAIN-KEYWORD,gosuslugi
   - DOMAIN-SUFFIX,nalog.ru
@@ -276,6 +277,9 @@ payload:
   - DOMAIN-SUFFIX,hh.ru
   - DOMAIN-SUFFIX,zentotem.net
   - DOMAIN-KEYWORD,kaspersky
+  - DOMAIN-SUFFIX,1cfresh.co
+  - DOMAIN-SUFFIX,1c.ru
+  - DOMAIN-SUFFIX,1cloud.ru
   # travel
   - DOMAIN-KEYWORD,2gis
   - DOMAIN-SUFFIX,rzd.ru
@@ -290,5 +294,5 @@ payload:
   # - DOMAIN-SUFFIX,travelrussia.ru
   - DOMAIN-SUFFIX,travel2moscow.com
   - DOMAIN-SUFFIX,otello.ru
-  - DOMAIN-SUFFIX,gorodpay.ru
+  - DOMAIN-SUFFIX,bronevik.com
 
