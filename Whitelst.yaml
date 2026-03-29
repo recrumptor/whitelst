@@ -41,15 +41,15 @@ payload:
   - DOMAIN-SUFFIX,qms.ru
   - DOMAIN-SUFFIX,beeline.ru
   - DOMAIN-SUFFIX,mts.ru
-  # - DOMAIN-SUFFIX,mymts.ru
-  # - DOMAIN-SUFFIX,mtsdengi.ru
+  - DOMAIN-SUFFIX,mymts.ru
+  - DOMAIN-SUFFIX,mtsdengi.ru
   # - DOMAIN-SUFFIX,mts.investments
-  # - DOMAIN-SUFFIX,mts-link.ru
+  - DOMAIN-SUFFIX,mts-link.ru
   - DOMAIN-SUFFIX,cdn.mtscdn.ru
   - DOMAIN-SUFFIX,urentbike.ru
   - DOMAIN-SUFFIX,t2.ru
   - DOMAIN-SUFFIX,sbermobile.ru
-  # - DOMAIN-SUFFIX,ertelecom.ru
+  - DOMAIN-SUFFIX,ertelecom.ru
   - DOMAIN-SUFFIX,motivtelecom.ru
   - DOMAIN-SUFFIX,yota.ru
   # media
@@ -77,7 +77,7 @@ payload:
   - DOMAIN-SUFFIX,teleport.media
   - DOMAIN-SUFFIX,mediavitrina.ru
   - DOMAIN-SUFFIX,1internet.tv
-  # - DOMAIN-SUFFIX,5-tv.ru
+  - DOMAIN-SUFFIX,5-tv.ru
   - DOMAIN-SUFFIX,1tv.ru
   - DOMAIN-SUFFIX,1tv.com
   - DOMAIN-SUFFIX,friday.ru
@@ -90,7 +90,7 @@ payload:
   - DOMAIN-SUFFIX,media1.ru
   # - DOMAIN-SUFFIX,ren.tv
   - DOMAIN-SUFFIX,clients-cdnnow.ru
-  # - DOMAIN-SUFFIX,tv3.ru
+  - DOMAIN-SUFFIX,tv3.ru
   # - DOMAIN-SUFFIX,gpm-content.ru
   - DOMAIN-SUFFIX,tnt-online.ru
   - DOMAIN-SUFFIX,tvc.ru
