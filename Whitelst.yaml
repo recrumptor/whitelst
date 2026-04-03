@@ -14,6 +14,7 @@ payload:
   - DOMAIN-SUFFIX,cdn.s3torage.ru
   - DOMAIN-SUFFIX,cdn.mdigital.ru
   - DOMAIN-SUFFIX,mironline.ru
+  - DOMAIN-SUFFIX,mir-platform.ru
   - DOMAIN-SUFFIX,mirconnect.ru
   # - DOMAIN-SUFFIX,t-bank-app.ru
   # - DOMAIN-SUFFIX,tbank.ru
@@ -26,7 +27,8 @@ payload:
   # gov
   - DOMAIN-KEYWORD,gosuslugi
   - DOMAIN-SUFFIX,nalog.ru
-  - DOMAIN,admtyumen.ru
+  - DOMAIN-SUFFIX,mos.ru
+  - DOMAIN-SUFFIX,admtyumen.ru
   - DOMAIN-SUFFIX,pochta.ru
   - DOMAIN-SUFFIX,russianpost.ru
   - DOMAIN-SUFFIX,gov.ru
@@ -36,6 +38,8 @@ payload:
   - DOMAIN-SUFFIX,nspk.ru
   - DOMAIN-SUFFIX,russiacalling.com
   - DOMAIN-SUFFIX,emias.info
+  - DOMAIN-SUFFIX,mvd.ru
+    
    
   # opsos
   - DOMAIN-SUFFIX,megafon.ru
@@ -52,6 +56,7 @@ payload:
   - DOMAIN-SUFFIX,cdn.mtscdn.ru
   - DOMAIN-SUFFIX,urentbike.ru
   - DOMAIN-SUFFIX,t2.ru
+  - DOMAIN-SUFFIX,tele2.ru 
   - DOMAIN-SUFFIX,sbermobile.ru
   - DOMAIN-SUFFIX,ertelecom.ru
   - DOMAIN-SUFFIX,motivtelecom.ru
@@ -66,7 +71,7 @@ payload:
   - DOMAIN-SUFFIX,ivi.ru
   - DOMAIN-SUFFIX,wink.ru
   - DOMAIN-SUFFIX,kion.ru
-  - DOMAIN-SUFFIX,cdn-new.zvuk.com
+  - DOMAIN-SUFFIX,zvuk.com
   - DOMAIN-SUFFIX,radioplayer.ru
   - DOMAIN-SUFFIX,gpmradio.ru
   - DOMAIN-SUFFIX,emgsound.ru
@@ -97,8 +102,10 @@ payload:
   - DOMAIN-SUFFIX,tv3.ru
   # - DOMAIN-SUFFIX,gpm-content.ru
   - DOMAIN-SUFFIX,tnt-online.ru
+  - DOMAIN-SUFFIX,spas-tv.ru
   - DOMAIN-SUFFIX,tvc.ru
   - DOMAIN-SUFFIX,mir24.tv
+  - DOMAIN-SUFFIX,matchtv.ru
    
   
   # VK
@@ -207,7 +214,7 @@ payload:
   - DOMAIN-SUFFIX,fix-price.com
   # - DOMAIN-KEYWORD,krasnoeibeloe
   - DOMAIN-SUFFIX,galamart.ru
-  - DOMAIN,bristol.ru
+  #- DOMAIN,bristol.ru
   - DOMAIN-SUFFIX,rostics.ru
   # - DOMAIN-KEYWORD,ngenix
   - DOMAIN-SUFFIX,komus.ru
@@ -219,6 +226,9 @@ payload:
   - DOMAIN-SUFFIX,lenta.com
   - DOMAIN-KEYWORD,youla
   - DOMAIN-SUFFIX,dodopizza.ru
+  - DOMAIN-SUFFIX,poisondrop.ru
+  - DOMAIN-SUFFIX,ilovesakura.ru
+  - DOMAIN-SUFFIX,atomy.ru
   
   # Yandex
   - DOMAIN-KEYWORD,yandex
@@ -258,11 +268,14 @@ payload:
   - DOMAIN-SUFFIX,mk.ru
   - DOMAIN-SUFFIX,russian.rt.com
   - DOMAIN-SUFFIX,b37mrtl.ru
-  - DOMAIN-SUFFIX,ru.russiatoday.com 
+  - DOMAIN,habr.com
+  - DOMAIN-SUFFIX,ru.russiatoday.com
+  - DOMAIN-SUFFIX,kommersant.ru
+    
   # other
   - DOMAIN,www.gismeteo.ru
   - DOMAIN-SUFFIX,rustore.ru
-  - DOMAIN,mindbox.ru
+  #- DOMAIN,mindbox.ru
   # - DOMAIN-SUFFIX,yadro.ru
   - DOMAIN-SUFFIX,markirovka.ru
   - DOMAIN-SUFFIX,crpt.ru
@@ -270,8 +283,7 @@ payload:
   - DOMAIN-KEYWORD,timeweb
   # - DOMAIN-SUFFIX,3gppnetwork.org
   - DOMAIN-SUFFIX,apptracer.ru
-  - DOMAIN-SUFFIX,fotostrana.ru
-  - DOMAIN-SUFFIX,atomy.ru
+  - DOMAIN,fotostrana.ru
   - DOMAIN-SUFFIX,upravel.com
   - DOMAIN-KEYWORD,bitrix
   - DOMAIN-SUFFIX,getcourse.ru
@@ -281,6 +293,7 @@ payload:
   - DOMAIN-SUFFIX,hh.ru
   - DOMAIN-SUFFIX,zentotem.net
   - DOMAIN-KEYWORD,kaspersky
+  - DOMAIN,drweb.ru
   - DOMAIN-SUFFIX,1cfresh.co
   - DOMAIN-SUFFIX,1c.ru
   - DOMAIN-SUFFIX,1cloud.ru
@@ -295,6 +308,17 @@ payload:
   - DOMAIN-SUFFIX,tamtam.chat
   - DOMAIN-SUFFIX,topdelivery.ru
   - DOMAIN-SUFFIX,usedesk.ru
+  - DOMAIN-SUFFIX,trueconf.ru
+  - DOMAIN-SUFFIX,star-conflict.com
+  - DOMAIN-SUFFIX,skillbox.ru
+  - DOMAIN-SUFFIX,superjob.ru
+  - DOMAIN-SUFFIX,sberclass.ru
+  - DOMAIN-SUFFIX,foxford.ru
+  - DOMAIN-SUFFIX,csi-processing.com
+  - DOMAIN-SUFFIX,crafttalk.ru
+  - DOMAIN-SUFFIX,rosseti.ru
+  
+  
   
   # travel
   - DOMAIN-KEYWORD,2gis
@@ -311,4 +335,8 @@ payload:
   - DOMAIN-SUFFIX,travel2moscow.com
   - DOMAIN-SUFFIX,otello.ru
   - DOMAIN-SUFFIX,bronevik.com
+  - DOMAIN-SUFFIX,grandtrain.ru
+  - DOMAIN-SUFFIX,belkacar.ru
+  - DOMAIN-SUFFIX,delimobil.ru
+  
 
