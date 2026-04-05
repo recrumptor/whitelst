@@ -4,7 +4,7 @@ payload:
   - DOMAIN-SUFFIX,alfabank.ru
   - DOMAIN-SUFFIX,aslife.ru
   - DOMAIN-SUFFIX,yoomoney.ru
-  - DOMAIN,www.otpbank.ru
+  - DOMAIN,otpbank.ru
   - DOMAIN-SUFFIX,psbank.ru
   - DOMAIN-SUFFIX,psblog.ru
   - DOMAIN-SUFFIX,gazprombank.ru
