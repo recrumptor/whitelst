@@ -2,7 +2,6 @@
 payload:
   # banki
   - DOMAIN-SUFFIX,alfabank.ru
-  - DOMAIN,aslife.ru
   - DOMAIN-SUFFIX,yoomoney.ru
   - DOMAIN-SUFFIX,psbank.ru
   - DOMAIN-SUFFIX,psblog.ru
