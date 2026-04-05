@@ -2,6 +2,9 @@
 payload:
   # banki
   - DOMAIN-SUFFIX,alfabank.ru
+  - DOMAIN-SUFFIX,aslife.ru
+  - DOMAIN-SUFFIX,yoomoney.ru
+  - DOMAIN-SUFFIX,otpbank.ru
   - DOMAIN-SUFFIX,psbank.ru
   - DOMAIN-SUFFIX,psblog.ru
   - DOMAIN-SUFFIX,gazprombank.ru
@@ -312,6 +315,7 @@ payload:
   - DOMAIN-SUFFIX,star-conflict.com
   - DOMAIN-SUFFIX,skillbox.ru
   - DOMAIN-SUFFIX,superjob.ru
+  - DOMAIN-SUFFIX,zarplata.ru
   - DOMAIN-SUFFIX,sberclass.ru
   - DOMAIN-SUFFIX,foxford.ru
   - DOMAIN-SUFFIX,csi-processing.com
@@ -327,6 +331,7 @@ payload:
   - DOMAIN-SUFFIX,tutu.ru
   # - DOMAIN-SUFFIX,tu-tu.ru
   # - DOMAIN-SUFFIX,taximaxim.ru
+  - DOMAIN-SUFFIX,taxipoehali.ru
   - DOMAIN-SUFFIX,flypobeda.ru
   - DOMAIN-SUFFIX,sirena-travel.ru
   - DOMAIN-KEYWORD,aeroflot
@@ -338,5 +343,6 @@ payload:
   - DOMAIN-SUFFIX,grandtrain.ru
   - DOMAIN-SUFFIX,belkacar.ru
   - DOMAIN-SUFFIX,delimobil.ru
+  - DOMAIN-SUFFIX,uralairlines.ru
   
 
