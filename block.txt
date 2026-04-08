@@ -136,7 +136,6 @@
 +.trellix.com
 +.carnegieendowment.org
 +.twirpx.com
-+.capcut.com
 +.decrypt.day
 +.amdm.ru
 +.amx.com
@@ -300,6 +299,7 @@
 +.jw-russia.org
 +.lantern.io
 +.chub.ai
++.charhub.io
 +.itch.io
 +.unsplash.com
 +.webmd.com
@@ -339,8 +339,8 @@
 +.tvdevinfo.com
 +.pixabay.com
 +.filmix.fan
-+.dreamina.capcut.com
 +.sophos.com
 +.pvpessence.com
 +.bufferbloat.net
 +.pronouns.page
++.pixiv.net
