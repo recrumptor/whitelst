@@ -108,6 +108,7 @@ payload:
   - DOMAIN-SUFFIX,tvc.ru
   - DOMAIN-SUFFIX,mir24.tv
   - DOMAIN-SUFFIX,matchtv.ru
+  - DOMAIN-SUFFIX,sportbox.ru
    
   
   # VK
@@ -207,6 +208,7 @@ payload:
   # - DOMAIN-SUFFIX,lmru.tech
   - DOMAIN-SUFFIX,auto.ru
   - DOMAIN-SUFFIX,avto.ru
+  - DOMAIN-SUFFIX,drom.ru
   - DOMAIN-KEYWORD,edadeal
   - DOMAIN-SUFFIX,victoria-group.ru
   - DOMAIN-SUFFIX,food.ru
@@ -316,6 +318,7 @@ payload:
   - DOMAIN-SUFFIX,skillbox.ru
   - DOMAIN-SUFFIX,superjob.ru
   - DOMAIN-SUFFIX,zarplata.ru
+  - DOMAIN-SUFFIX,rabota.ru
   - DOMAIN-SUFFIX,sberclass.ru
   - DOMAIN-SUFFIX,foxford.ru
   - DOMAIN-SUFFIX,csi-processing.com
