@@ -325,6 +325,8 @@ payload:
   - DOMAIN-SUFFIX,crafttalk.ru
   - DOMAIN-SUFFIX,rosseti.ru
   - DOMAIN-SUFFIX,salutejazz.ru
+  - DOMAIN-SUFFIX,ideco.ru
+  - DOMAIN-SUFFIX,comss.ru
   
   
   
@@ -348,5 +350,6 @@ payload:
   - DOMAIN-SUFFIX,belkacar.ru
   - DOMAIN-SUFFIX,delimobil.ru
   - DOMAIN-SUFFIX,uralairlines.ru
+  - DOMAIN-SUFFIX,netmonet.co
   
 
