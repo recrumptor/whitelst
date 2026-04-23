@@ -23,8 +23,10 @@ dns:
     - 77.88.8.1
   nameserver:
     - https://common.dot.dns.yandex.net/dns-query
+  direct-nameserver:
+    - system
    
-keep-alive-idle: 60
+keep-alive-idle: 15
 keep-alive-interval: 15
 find-process-mode: off
 
@@ -117,10 +119,7 @@ proxy-groups:
 
   - name: SUB1
     type: url-test
-    #url: http://cp.cloudflare.com/generate_204
-    url: http://www.gstatic.com/generate_204
-    expected-status: 204
-    #interval: 300
+    interval: 300
     tolerance: 60
     lazy: true
     use: 
@@ -130,11 +129,8 @@ proxy-groups:
 
   - name: SUB2
     type: url-test
-    #url: http://cp.cloudflare.com/generate_204
-    url: http://www.gstatic.com/generate_204
-    expected-status: 204
     tolerance: 60
-    #interval: 300
+    interval: 300
     lazy: true
     use: 
     - AL ALIVE
@@ -142,11 +138,8 @@ proxy-groups:
     
   - name: SUB3
     type: url-test
-    #url: http://cp.cloudflare.com/generate_204
-    url: http://www.gstatic.com/generate_204
-    expected-status: 204
     tolerance: 60
-    #interval: 300
+    interval: 300
     lazy: true
     use: 
     - AL ALIVE
@@ -154,10 +147,8 @@ proxy-groups:
     
   - name: SUB4
     type: fallback
-    #url: http://cp.cloudflare.com/generate_204
-    #expected-status: 204
     #tolerance: 60
-    #interval: 300
+    interval: 300
     lazy: true
     use: 
     - ST START
@@ -203,6 +194,27 @@ rule-providers:
     url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/Youtube.txt"
     interval: 86400
     path: ./ruleset/youtube.yaml
+  google_play:
+    behavior: domain
+    type: http
+    format: text
+    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/google_play.txt"
+    interval: 86400
+    path: ./ruleset/google_play.yaml
+  meta:
+    behavior: domain
+    type: http
+    format: text
+    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/meta.txt"
+    interval: 86400
+    path: ./ruleset/meta.yaml
+  telegram:
+    behavior: domain
+    type: http
+    format: text
+    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/telegram.txt"
+    interval: 86400
+    path: ./ruleset/telegram.yaml
 
 
 
@@ -214,10 +226,14 @@ rules:
   - DOMAIN-SUFFIX,vigo.one,REJECT
   - DOMAIN-SUFFIX,uxfeedback.ru,REJECT
   - DOMAIN-SUFFIX,tns-counter.ru,REJECT
+  - DOMAIN-SUFFIX,yandex.net,DIRECT
+  - RULE-SET,whitelist,DIRECT
+  - RULE-SET,google_play,SUB2
+  - RULE-SET,meta,SUB2
+  - RULE-SET,telegram,SUB3
+  - DOMAIN-SUFFIX,ntc.party,SUB3
   - RULE-SET,youtube,SUB2
   - RULE-SET,gemini,SUB3
-  - RULE-SET,whitelist,DIRECT
-  - DOMAIN-SUFFIX,ntc.party,SUB3
   - DOMAIN-KEYWORD,google,SUB2
   - RULE-SET,geo-blocked,SUB3
   - MATCH,SUB1
