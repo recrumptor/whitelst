@@ -226,6 +226,8 @@ rules:
   - DOMAIN-SUFFIX,vigo.one,REJECT
   - DOMAIN-SUFFIX,uxfeedback.ru,REJECT
   - DOMAIN-SUFFIX,tns-counter.ru,REJECT
+  - DOMAIN,adsdk.yandex.ru,REJECT
+  - DOMAIN,ad.mail.ru,REJECT
   - DOMAIN-SUFFIX,yandex.net,DIRECT
   - RULE-SET,whitelist,DIRECT
   - RULE-SET,google_play,SUB2
