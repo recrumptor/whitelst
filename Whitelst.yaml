@@ -251,7 +251,13 @@ payload:
   - DOMAIN-SUFFIX,turbopages.org
   - DOMAIN-SUFFIX,webvisor.com
   - DOMAIN-SUFFIX,yads.tech
-  - DOMAIN-SUFFIX,yastat.net  
+  - DOMAIN-SUFFIX,yastat.net
+  - DOMAIN-SUFFIX,berizaryad.ru
+  - DOMAIN-SUFFIX,meteum.ai
+  - DOMAIN-SUFFIX,shedevrum.ai
+  - DOMAIN-SUFFIX,sourcecraft.dev
+  - DOMAIN-SUFFIX,elama.ru
+  
   # smi
   - DOMAIN-SUFFIX,rbc.ru
   - DOMAIN-SUFFIX,rbk.ru
