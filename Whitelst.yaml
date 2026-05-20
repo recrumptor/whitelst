@@ -282,6 +282,7 @@ payload:
   - DOMAIN,habr.com
   - DOMAIN-SUFFIX,ru.russiatoday.com
   - DOMAIN-SUFFIX,kommersant.ru
+  - DOMAIN-SUFFIX,ruwiki.ru
     
   # other
   - DOMAIN,www.gismeteo.ru
