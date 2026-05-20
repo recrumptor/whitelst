@@ -334,9 +334,10 @@ payload:
   - DOMAIN-SUFFIX,salutejazz.ru
   - DOMAIN-SUFFIX,ideco.ru
   - DOMAIN-SUFFIX,comss.ru
-  
-  
-  
+  - DOMAIN-SUFFIX,lizaalert.org
+  - DOMAIN-SUFFIX,evotor.ru
+  - DOMAIN-SUFFIX,edu.sirius.online
+    
   # travel
   - DOMAIN-KEYWORD,2gis
   - DOMAIN-SUFFIX,rzd.ru
