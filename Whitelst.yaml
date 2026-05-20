@@ -337,6 +337,9 @@ payload:
   - DOMAIN-SUFFIX,lizaalert.org
   - DOMAIN-SUFFIX,evotor.ru
   - DOMAIN-SUFFIX,edu.sirius.online
+  - DOMAIN-SUFFIX,lumiflex.ru
+  - DOMAIN-SUFFIX,ican-sinocare.ru
+  - DOMAIN-SUFFIX,freestylediabetes.ru
     
   # travel
   - DOMAIN-KEYWORD,2gis
