@@ -153,6 +153,13 @@ proxy-groups:
     use: 
     - ST START
     - BE BENSS
+
+  - name: PROXY
+    type: select
+    proxies:
+    - 🇳🇱 Proton
+    - SUB2
+    - SUB4
   
 rule-providers:
 
