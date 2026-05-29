@@ -56,7 +56,6 @@ payload:
   # - DOMAIN-SUFFIX,mts.investments
   - DOMAIN-SUFFIX,mts-link.ru
   - DOMAIN-SUFFIX,cdn.mtscdn.ru
-  - DOMAIN-SUFFIX,urentbike.ru
   - DOMAIN-SUFFIX,t2.ru
   - DOMAIN-SUFFIX,tele2.ru 
   - DOMAIN-SUFFIX,sbermobile.ru
@@ -362,5 +361,6 @@ payload:
   - DOMAIN-SUFFIX,delimobil.ru
   - DOMAIN-SUFFIX,uralairlines.ru
   - DOMAIN-SUFFIX,netmonet.co
+  # - DOMAIN-SUFFIX,urentbike.ru
   
 
