@@ -13,6 +13,7 @@ payload:
   - DOMAIN-SUFFIX,vtb.com
   - DOMAIN-KEYWORD,sberbank
   - DOMAIN-SUFFIX,sber.ru
+  - DOMAIN-SUFFIX,sbermarketing.ru
   - DOMAIN-SUFFIX,cdn.s3torage.ru
   - DOMAIN-SUFFIX,cdn.mdigital.ru
   - DOMAIN-SUFFIX,mironline.ru
