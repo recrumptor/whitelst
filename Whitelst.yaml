@@ -11,8 +11,8 @@ payload:
   - DOMAIN-SUFFIX,gpb.ru
   - DOMAIN-SUFFIX,vtb.ru
   - DOMAIN-SUFFIX,vtb.com
-  # - DOMAIN-KEYWORD,sovcombank
-  # - DOMAIN-SUFFIX,halvacard.ru
+  - DOMAIN-SUFFIX,sberbank.ru
+  - DOMAIN-SUFFIX,sber.ru
   - DOMAIN-SUFFIX,cdn.s3torage.ru
   - DOMAIN-SUFFIX,cdn.mdigital.ru
   - DOMAIN-SUFFIX,mironline.ru
