@@ -29,8 +29,8 @@ dns:
      
   nameserver-policy:
        
-    'rule-set:geo-blocked': 'https://1.1.1.1/dns-query#PROXY&disable-ipv6=true' # оставляем только ipv4 там где это нужно 
-    'rule-set:gemini': 'https://1.1.1.1/dns-query#PROXY&disable-ipv6=true'
+    'rule-set:geo-blocked': 'https://1.1.1.1/dns-query#disable-ipv6=true' # оставляем только ipv4 там где это нужно 
+    'rule-set:gemini': 'https://1.1.1.1/dns-query#disable-ipv6=true'
           
 keep-alive-idle: 120
 keep-alive-interval: 60
@@ -42,7 +42,7 @@ profile:
 routing-mark: 2
 
 sniffer:
-  enable: true
+  enable: false
   force-dns-mapping: true
   parse-pure-ip: true
   sniff:
