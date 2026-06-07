@@ -68,7 +68,7 @@ proxies:
     interface-name: awg1
       
   - name: 🇳🇱 Proton
-    type: direct
+    type: direct # цепочку прокси в данном случае сделал через Routing=> Static IPv4 Routes 
     interface-name: proton
       
 proxy-groups:
