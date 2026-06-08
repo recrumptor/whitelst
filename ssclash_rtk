@@ -29,9 +29,11 @@ dns:
      
   nameserver-policy:
        
-    'rule-set:geo-blocked': 'https://1.1.1.1/dns-query#disable-ipv6=true' # оставляем только ipv4 там где это нужно 
-    'rule-set:gemini': 'https://1.1.1.1/dns-query#disable-ipv6=true'
-          
+    #'rule-set:geo-blocked': 'https://1.1.1.1/dns-query#disable-ipv6=true' # оставляем только ipv4 там где это нужно 
+    #'rule-set:gemini': 'https://1.1.1.1/dns-query#disable-ipv6=true'
+    'rule-set:geo-blocked': '10.2.0.1#PROXY&disable-ipv6=true'
+    'rule-set:gemini': '10.2.0.1#PROXY&disable-ipv6=true'
+
 keep-alive-idle: 120
 keep-alive-interval: 60
 find-process-mode: off
