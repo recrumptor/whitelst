@@ -6,6 +6,9 @@ on:
     - cron: '0 0 * * 1'
   workflow_dispatch: # Позволяет запускать воркфлоу вручную в любое время
 
+permissions:
+  contents: write
+  
 jobs:
   update-rules:
     runs-on: ubuntu-latest
