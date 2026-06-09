@@ -17,16 +17,34 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Download and convert Geosite JSON to Clash YAML
+    - name: Download and convert Geosite JSON to Clash YAML and Plain List
       run: |
+        # 1. Скачиваем оригинальный JSON
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google-gemini.json" -o gemini.json
         
+        # 2. Создаем шапку файла Clash
         echo "payload:" > gemini.yaml
         
-        jq -r '.rules[] | .domain[]? | "  - DOMAIN,\(.)"' gemini.json >> gemini.yaml
-        jq -r '.rules[] | .domain_suffix[]? | "  - DOMAIN-SUFFIX,\(.)"' gemini.json >> gemini.yaml
-        jq -r '.rules[] | .domain_keyword[]? | "  - DOMAIN-KEYWORD,\(.)"' gemini.json >> gemini.yaml
+        # 3. Очищаем gemini.lst, если он существовал
+        cat /dev/null > gemini.lst
         
+        # 4. Парсим каждую категорию для Clash YAML и одновременно собираем чистые домены в gemini.lst
+        jq -r '.rules[] | .domain[]?' gemini.json | while read -r line; do
+          echo "  - DOMAIN,$line" >> gemini.yaml
+          echo "$line" >> gemini.lst
+        done
+        
+        jq -r '.rules[] | .domain_suffix[]?' gemini.json | while read -r line; do
+          echo "  - DOMAIN-SUFFIX,$line" >> gemini.yaml
+          echo "$line" >> gemini.lst
+        done
+        
+        jq -r '.rules[] | .domain_keyword[]?' gemini.json | while read -r line; do
+          echo "  - DOMAIN-KEYWORD,$line" >> gemini.yaml
+          echo "$line" >> gemini.lst
+        done
+        
+        # 5. Удаляем временный файл
         rm gemini.json
 
     - name: Commit and Push changes
@@ -34,7 +52,9 @@ jobs:
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         
-        # Силой добавляем файл и создаем коммит без проверок на разницу
-        git add gemini.yaml
+        # Добавляем оба файла в индекс Git
+        git add gemini.yaml gemini.lst
+        
+        # Делаем коммит, если изменился хотя бы один файл
         git commit -m "chore: автоматическое обновление правил Gemini [$(date +'%Y-%m-%d')]" || echo "Нет изменений для коммита"
         git push origin HEAD:${{ github.ref_name }}
