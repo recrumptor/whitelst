@@ -1,0 +1,53 @@
+name: Update Gemini Clash Rules
+
+on:
+  schedule:
+    # Запуск автоматически каждый понедельник в 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch: # Позволяет запускать воркфлоу вручную в любое время
+
+jobs:
+  update-rules:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download and convert Geosite JSON to Clash YAML
+      run: |
+        # 1. Скачиваем актуальный JSON-файл из репозитория MetaCubeX
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google-gemini.json" -o gemini.json
+        
+        # 2. Создаем заголовок (шапку) для Clash rule-provider
+        echo "payload:" > gemini.yaml
+        
+        # 3. Парсим JSON и конвертируем префиксы под формат Clash:
+        # full:domain.com -> DOMAIN
+        # keyword:word    -> DOMAIN-KEYWORD
+        # domain:domain.com или просто домен -> DOMAIN-SUFFIX
+        jq -r '.payload[]' gemini.json | awk '
+        /^full:/    { sub(/^full:/, "");    print "  - DOMAIN," $0; next }
+        /^keyword:/ { sub(/^keyword:/, ""); print "  - DOMAIN-KEYWORD," $0; next }
+        /^domain:/  { sub(/^domain:/, "");  print "  - DOMAIN-SUFFIX," $0; next }
+        /^[a-zA-Z0-9]/ {                    print "  - DOMAIN-SUFFIX," $0; next }
+        ' >> gemini.yaml
+        
+        # 4. Удаляем временный файл JSON, чтобы он не попал в коммит
+        rm gemini.json
+
+    - name: Commit and Push changes
+      run: |
+        # Настраиваем имя бота для коммитов
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+        # Проверяем, изменился ли файл gemini.yaml по сравнению с прошлой неделей
+        if git diff --quiet gemini.yaml; then
+          echo "Изменений в правилах нет. Пропускаем коммит."
+        else
+          # Если изменения есть — фиксируем их и отправляем в репозиторий
+          git add gemini.yaml
+          git commit -m "chore: автоматическое обновление правил Gemini [$(date +'%Y-%m-%d')]"
+          git push
+        fi
