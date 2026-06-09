@@ -105,8 +105,7 @@ rule-providers:
   gemini:
     behavior: domain
     type: http
-    format: text
-    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/GoogleAI.txt"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/classical/google-gemini.yaml"
     interval: 86400
     path: ./ruleset/gemini.yaml
   
@@ -121,8 +120,7 @@ rule-providers:
   telegram:
     behavior: domain
     type: http
-    format: text
-    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/telegram.txt"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/telegram.yaml"
     interval: 86400
     path: ./ruleset/telegram.yaml
     
