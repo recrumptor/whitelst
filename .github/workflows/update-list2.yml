@@ -19,24 +19,18 @@ jobs:
 
     - name: Download and convert Geosite JSON to Clash YAML
       run: |
-        # 1. Скачиваем актуальный JSON-файл из репозитория MetaCubeX
+        # 1. Скачиваем оригинальный JSON
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google-gemini.json" -o gemini.json
         
-        # 2. Создаем заголовок (шапку) для Clash rule-provider
+        # 2. Создаем шапку файла Clash
         echo "payload:" > gemini.yaml
         
-        # 3. Парсим JSON и конвертируем префиксы под формат Clash:
-        # full:domain.com -> DOMAIN
-        # keyword:word    -> DOMAIN-KEYWORD
-        # domain:domain.com или просто домен -> DOMAIN-SUFFIX
-        jq -r '.payload[]' gemini.json | awk '
-        /^full:/    { sub(/^full:/, "");    print "  - DOMAIN," $0; next }
-        /^keyword:/ { sub(/^keyword:/, ""); print "  - DOMAIN-KEYWORD," $0; next }
-        /^domain:/  { sub(/^domain:/, "");  print "  - DOMAIN-SUFFIX," $0; next }
-        /^[a-zA-Z0-9]/ {                    print "  - DOMAIN-SUFFIX," $0; next }
-        ' >> gemini.yaml
+        # 3. Парсим каждую категорию отдельно и переводим в формат Clash
+        jq -r '.rules[] | .domain[]? | "  - DOMAIN,\(.)"' gemini.json >> gemini.yaml
+        jq -r '.rules[] | .domain_suffix[]? | "  - DOMAIN-SUFFIX,\(.)"' gemini.json >> gemini.yaml
+        jq -r '.rules[] | .domain_keyword[]? | "  - DOMAIN-KEYWORD,\(.)"' gemini.json >> gemini.yaml
         
-        # 4. Удаляем временный файл JSON, чтобы он не попал в коммит
+        # 4. Удаляем временный файл
         rm gemini.json
 
     - name: Commit and Push changes
