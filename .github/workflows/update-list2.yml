@@ -2,49 +2,39 @@ name: Update Gemini Clash Rules
 
 on:
   schedule:
-    # Запуск автоматически каждый понедельник в 00:00 UTC
     - cron: '0 0 * * 1'
-  workflow_dispatch: # Позволяет запускать воркфлоу вручную в любое время
+  workflow_dispatch:
 
-permissions:
-  contents: write
-  
 jobs:
   update-rules:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Download and convert Geosite JSON to Clash YAML
       run: |
-        # 1. Скачиваем оригинальный JSON
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google-gemini.json" -o gemini.json
         
-        # 2. Создаем шапку файла Clash
         echo "payload:" > gemini.yaml
         
-        # 3. Парсим каждую категорию отдельно и переводим в формат Clash
         jq -r '.rules[] | .domain[]? | "  - DOMAIN,\(.)"' gemini.json >> gemini.yaml
         jq -r '.rules[] | .domain_suffix[]? | "  - DOMAIN-SUFFIX,\(.)"' gemini.json >> gemini.yaml
         jq -r '.rules[] | .domain_keyword[]? | "  - DOMAIN-KEYWORD,\(.)"' gemini.json >> gemini.yaml
         
-        # 4. Удаляем временный файл
         rm gemini.json
 
     - name: Commit and Push changes
       run: |
-        # Настраиваем имя бота для коммитов
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         
-        # Проверяем, изменился ли файл gemini.yaml по сравнению с прошлой неделей
-        if git diff --quiet gemini.yaml; then
-          echo "Изменений в правилах нет. Пропускаем коммит."
-        else
-          # Если изменения есть — фиксируем их и отправляем в репозиторий
-          git add gemini.yaml
-          git commit -m "chore: автоматическое обновление правил Gemini [$(date +'%Y-%m-%d')]"
-          git push
-        fi
+        # Силой добавляем файл и создаем коммит без проверок на разницу
+        git add gemini.yaml
+        git commit -m "chore: автоматическое обновление правил Gemini [$(date +'%Y-%m-%d')]" || echo "Нет изменений для коммита"
+        git push origin HEAD:${{ github.ref_name }}
