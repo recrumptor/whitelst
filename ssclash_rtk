@@ -33,7 +33,7 @@ dns:
     #'rule-set:gemini': 'https://1.1.1.1/dns-query#disable-ipv6=true'
     'rule-set:geo-blocked': '10.2.0.1#PROXY&disable-ipv6=true'
     'rule-set:gemini': '10.2.0.1#PROXY&disable-ipv6=true'
-
+    #'rule-set:gemini': 'https://dns.comss.one/dns-query#disable-ipv6=true' # костыль если gemini не работает
 keep-alive-idle: 120
 keep-alive-interval: 60
 find-process-mode: off
@@ -87,11 +87,11 @@ proxy-groups:
     
 rule-providers:
 
-  awavenue_ads:
+  mybest_ads:
     type: http
-    behavior: classical
-    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml"
-    path: ./ruleset/awavenue.yaml
+    behavior: domain
+    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/ads.yaml"
+    path: ./ruleset/my-ads.yaml
     interval: 86400
     
   geo-blocked:
@@ -134,13 +134,9 @@ rule-providers:
 
 rules:
   
-  - DOMAIN,adsdk.yandex.ru,REJECT
-  - DOMAIN,ad.mail.ru,REJECT
-  - RULE-SET,awavenue_ads,REJECT
+  - RULE-SET,mybest_ads,REJECT
   - DOMAIN-SUFFIX,vigo.one,REJECT
   - DOMAIN-SUFFIX,uxfeedback.ru,REJECT
-  - DOMAIN-SUFFIX,tns-counter.ru,REJECT
-  - DOMAIN-KEYWORD,2ip,PROXY
   - DOMAIN-SUFFIX,protonvpn.com,WARP
   - DOMAIN-SUFFIX,cloudfront.net,PROXY
   - RULE-SET,telegram,PROXY
