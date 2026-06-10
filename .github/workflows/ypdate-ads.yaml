@@ -1,0 +1,27 @@
+name: Update Ads List for Clash
+on:
+  schedule:
+    - cron: '0 3 * * *' # Будет запускаться каждый день в 3 часа ночи
+  workflow_dispatch: # Позволяет запустить вручную кнопкой
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Download and Convert List
+        run: |
+          echo "payload:" > ads.yaml
+          curl -s https://raw.githubusercontent.com/Yularzhi/geosite_russia/main/data/category-ads-all | \
+          grep -v '^#' | grep -v '^[[:space:]]*$' | \
+          sed "s/^/  - '+./" | sed "s/$/'/" >> ads.yaml
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add ads.yaml
+          git commit -m "Auto-update ads list" || exit 0
+          git push
