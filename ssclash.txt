@@ -23,8 +23,7 @@ dns:
     - 77.88.8.1
   nameserver:
     - https://common.dot.dns.yandex.net/dns-query
- nameserver-policy:
-    '+.ozone.ru': '188.170.16.81' # исправить косяк ДНС мегафона с картинками на озоне
+ 
   direct-nameserver:
     - system
    
