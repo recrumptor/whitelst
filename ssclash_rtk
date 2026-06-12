@@ -103,7 +103,7 @@ rule-providers:
     path: ./ruleset/geo-blocked.yaml
     
   gemini:
-    behavior: domain
+    behavior: classical
     type: http
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/classical/google-gemini.yaml"
     interval: 86400
