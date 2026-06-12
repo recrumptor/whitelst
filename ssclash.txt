@@ -23,6 +23,8 @@ dns:
     - 77.88.8.1
   nameserver:
     - https://common.dot.dns.yandex.net/dns-query
+ nameserver-policy:
+    '+.ozone.ru': '188.170.16.81' # исправить косяк ДНС мегафона с картинками на озоне
   direct-nameserver:
     - system
    
@@ -59,7 +61,7 @@ proxy-providers:
 
   AL ALIVE:
     type: http
-    url: "https://raw.githubusercontent.com/zieng2/wl/refs/heads/main/vless_lite.txt"
+    url: "https://gitverse.ru/api/repos/zieng2/wl/raw/branch/master/list_universal.txt"
     path: ./proxy_providers/al.yaml
     interval: 28800
     #filter: "🇷🇺|Germany|Netherlands|Finland"
@@ -165,8 +167,8 @@ rule-providers:
 
   awavenue_ads:
     type: http
-    behavior: classical
-    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml"
+    behavior: domain
+    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/ads.yaml"
     path: ./ruleset/awavenue.yaml
     interval: 86400
     
@@ -179,10 +181,9 @@ rule-providers:
     path: ./ruleset/geo-blocked.yaml
     
   gemini:
-    behavior: domain
+    behavior: classical
     type: http
-    format: text
-    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/GoogleAI.txt"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/classical/google-gemini.yaml"
     interval: 86400
     path: ./ruleset/gemini.yaml
     
