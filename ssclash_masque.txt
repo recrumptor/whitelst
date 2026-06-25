@@ -1,0 +1,166 @@
+mode: rule
+# Proxy Mode: TPROXY
+tproxy-port: 7894
+ipv6: true
+log-level: error
+allow-lan: false
+port: 
+mixed-port: 10801
+unified-delay: true
+tcp-concurrent: true
+external-controller: 192.168.1.1:9090
+external-ui: ./ui
+external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
+
+dns:
+  enable: true
+  listen: 0.0.0.0:7874
+  ipv6: true
+    
+  default-nameserver:
+   
+    - 77.88.8.8
+    - 77.88.8.1
+   
+  nameserver:
+    - https://cloudflare-dns.com/dns-query
+    - https://common.dot.dns.yandex.net/dns-query
+    
+  nameserver-policy:
+       
+    'rule-set:gemini': 'https://1.1.1.1/dns-query#disable-ipv6=true'
+    'rule-set:geo-blocked': 'https://1.1.1.1/dns-query#disable-ipv6=true'
+      
+keep-alive-idle: 120
+keep-alive-interval: 60
+find-process-mode: off
+
+profile:
+  store-selected: true
+ 
+routing-mark: 2
+
+sniffer:
+  enable: false
+  force-dns-mapping: true
+  parse-pure-ip: true
+  
+  
+msq: &msq
+   type: masque
+   private-key: MHcCAxxxxxxxxxxxxxxyyyyyyyyyzzzzl69cTA== # ваш код из warp-generator.github.io
+   public-key: MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIaU7MToJm9NKp8YfGxR6r+/h4mcG7SxI8tsW8OR1A5tv/zCzVbCRRh2t87/kxnP6lAy0lkr7qYwu+ox+k3dr6w==
+   ip: 172.16.0.2
+   ipv6: 2606:4700:110:8695:8306:c134:71ef:3acf
+   mtu: 1280
+   udp: true
+   #remote-dns-resolve: true
+   #dns: [1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001]
+  
+proxies:
+  - name: 🇷🇺 MASQUE
+    server: 162.159.198.2
+    port: 443
+    sni: 4pda.to
+    <<: *msq
+    
+  - name: 🇺🇸 MASQUE
+    server: 162.159.198.2
+    server: 2602:fc59:11:64::a29f:c602
+    port: 443
+    sni: yahoo.com
+    <<: *msq
+    
+  - name:  🇫🇮 MASQUE
+    server: 2a01:4f9:c010:3f02:64::a29f:c602
+    port: 443
+    sni: yahoo.com
+    #network: h2  
+    <<: *msq
+    
+  - name: 🇫🇮 MASQUE1
+    server: 2001:67c:2b0:db32::a29f:c702
+    port: 443
+    sni: yahoo.com
+    <<: *msq
+   
+  - name: 🇩🇪 MASQUE
+    server: 2001:67c:2960:6464::a29f:c702
+    port: 443
+    sni: yahoo.com
+    <<: *msq
+  
+    
+proxy-groups:
+    
+  - name: PROXY
+    type: select
+    proxies:
+    - 🇺🇸 MASQUE
+    - 🇫🇮 MASQUE 
+    - 🇫🇮 MASQUE1
+    - 🇩🇪 MASQUE
+    
+  - name: WARP
+    type: select
+    proxies:
+    - 🇷🇺 MASQUE
+     
+rule-providers:
+
+  mybest_ads:
+    type: http
+    #format: text
+    behavior: domain
+    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/ads.yaml"
+    path: ./ruleset/my-ads.yaml
+    interval: 86400
+    
+  geo-blocked:
+    behavior: domain
+    type: http
+    format: text
+    url: 'https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/geo.txt'
+    interval: 86400
+    path: ./ruleset/geo-blocked.yaml
+    
+  gemini:
+    behavior: domain
+    type: http
+    #format: text
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-gemini.yaml"
+    interval: 86400
+    path: ./ruleset/gemini.yaml
+  
+  #youtube:
+    #behavior: domain
+    #type: http
+    #format: text
+    #url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/Youtube.txt"
+    #interval: 86400
+    #path: ./ruleset/youtube.yaml
+    
+  telegram:
+    behavior: domain
+    type: http
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/telegram.yaml"
+    interval: 86400
+    path: ./ruleset/telegram.yaml
+    
+  telegram-ip:
+    behavior: ipcidr
+    type: http
+    format: text
+    url: https://core.telegram.org/resources/cidr.txt
+    interval: 86400
+    path: ./ruleset/telegram-ip.yaml
+
+rules:
+  - RULE-SET,mybest_ads,REJECT
+  - DOMAIN-SUFFIX,vigo.one,REJECT
+  - DOMAIN-SUFFIX,uxfeedback.ru,REJECT
+  - RULE-SET,telegram,PROXY
+  - RULE-SET,telegram-ip,PROXY,no-resolve
+  - RULE-SET,gemini,PROXY
+  - RULE-SET,geo-blocked,PROXY
+  - MATCH,DIRECT
