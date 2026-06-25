@@ -54,8 +54,6 @@ msq: &msq
    ipv6: 2606:4700:110:8695:8306:c134:71ef:3acf
    mtu: 1280
    udp: true
-   #remote-dns-resolve: true
-   #dns: [1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001]
   
 proxies:
   - name: 🇷🇺 MASQUE
