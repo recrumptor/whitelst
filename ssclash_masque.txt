@@ -110,7 +110,6 @@ rule-providers:
 
   mybest_ads:
     type: http
-    #format: text
     behavior: domain
     url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/ads.yaml"
     path: ./ruleset/my-ads.yaml
@@ -127,7 +126,6 @@ rule-providers:
   gemini:
     behavior: domain
     type: http
-    #format: text
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-gemini.yaml"
     interval: 86400
     path: ./ruleset/gemini.yaml
