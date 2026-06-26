@@ -29,8 +29,15 @@ jobs:
 
       - name: Compile to MRS
         run: |
-          # Компилируем текстовый список доменов в бинарный файл .mrs
-          mihomo cli ruleset compile domains.txt -o category-ads-all.mrs
+          echo "Starting compilation of domains.txt..."
+          
+          # 1. Создаем абсолютно пустой конфиг в текущей папке
+          touch config.yaml
+          
+          # 2. Запускаем компиляцию, принудительно указав пустой конфиг через флаг -d
+          mihomo -d . cli ruleset compile domains.txt -o category-ads-all.mrs
+          
+          echo "Compilation finished!"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
