@@ -25,18 +25,12 @@ jobs:
 
       - name: Compile YAML to MRS
         run: |
-          echo "Starting compilation of ads.yaml..."
+          echo "Starting official rule-set conversion..."
           
-          # Запускаем компиляцию локального файла ads.yaml из вашего репозитория
-          # timeout на 5 секунд защитит от зависания прокси-сервера
-          timeout 5s mihomo cli ruleset compile ads.yaml -o category-ads-all.mrs || true
+          # Синтаксис: mihomo convert-ruleset [поведение] [исходный-формат] [входной-файл] [выходной-файл]
+          mihomo convert-ruleset domain yaml ads.yaml category-ads-all.mrs
           
-          # Проверяем результат
-          if [ -s category-ads-all.mrs ]; then
-            echo "Success! Binary MRS rule-provider created."
-          else
-            echo "Error: Compilation failed." && exit 1
-          fi
+          echo "Conversion finished perfectly!"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
