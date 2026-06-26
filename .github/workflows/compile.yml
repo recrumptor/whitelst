@@ -31,8 +31,18 @@ jobs:
         run: |
           echo "Starting compilation of domains.txt..."
           
-          # Запускаем компиляцию в тихом режиме без старта прокси
-          mihomo cli ruleset compile domains.txt -o category-ads-all.mrs
+          # Создаем минимальный валидный конфиг с отключенными портами
+          cat <<EOF > config.yaml
+          mixed-port: 0
+          port: 0
+          socks-port: 0
+          allow-lan: false
+          mode: rule
+          log-level: silent
+          EOF
+          
+          # Запускаем компиляцию, принудительно указав эту папку с конфигом
+          mihomo -d . cli ruleset compile domains.txt -o category-ads-all.mrs
           
           echo "Compilation finished!"
 
