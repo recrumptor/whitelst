@@ -15,8 +15,8 @@ jobs:
         run: |
           echo "payload:" > ads.yaml
           curl -s https://raw.githubusercontent.com/Yularzhi/geosite_russia/main/data/category-ads-all | \
-          grep -v '^#' | grep -v ^[[:space:]]*$ | \
-          sed "s/^/  - '+./" | sed "s/$/'/" >> ads.yaml
+          grep -v '^#' | grep -v '^[[:space:]]*$' | \
+          sed "s/^/  - +./" >> ads.yaml
 
       - name: Commit and Push changes
         run: |
