@@ -18,31 +18,20 @@ jobs:
         run: |
           curl -sSL "https://raw.githubusercontent.com/Yularzhi/geosite_russia/main/data/category-ads-all" -o domains.txt
 
-      - name: Install Mihomo (Clash Meta)
+      - name: Install Ruleset Compiler
         run: |
-          # Скачиваем последнюю версию mihomo для Linux
-          MIHOMO_VERSION=$(curl -s "https://api.github.com/repos/MetaCubeX/mihomo/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-          curl -sSL "https://github.com/MetaCubeX/mihomo/releases/download/${MIHOMO_VERSION}/mihomo-linux-amd64-${MIHOMO_VERSION}.gz" -o mihomo.gz
-          gunzip mihomo.gz
-          chmod +x mihomo
-          sudo mv mihomo /usr/local/bin/mihomo
+          # Скачиваем официальный легкий компилятор правил от MetaCubeX
+          curl -sSL "https://github.com/MetaCubeX/metacubexraw/releases/download/v0.0.3/metacubexraw-linux-amd64" -o compiler
+          chmod +x compiler
+          sudo mv compiler /usr/local/bin/metacubexraw
+          echo "Compiler installed!"
 
       - name: Compile to MRS
         run: |
           echo "Starting compilation of domains.txt..."
           
-          # Создаем минимальный валидный конфиг с отключенными портами
-          cat <<EOF > config.yaml
-          mixed-port: 0
-          port: 0
-          socks-port: 0
-          allow-lan: false
-          mode: rule
-          log-level: silent
-          EOF
-          
-          # Запускаем компиляцию, принудительно указав эту папку с конфигом
-          mihomo -d . cli ruleset compile domains.txt -o category-ads-all.mrs
+          # Компилируем напрямую через легкую утилиту
+          metacubexraw ruleset compile domains.txt -o category-ads-all.mrs
           
           echo "Compilation finished!"
 
