@@ -44,7 +44,6 @@ jobs:
         if: success()
         with:
           tag_name: latest
-          name: "Ruleset Updated: ${{ github.event.head_commit.timestamp }}"
           files: category-ads-all.mrs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
