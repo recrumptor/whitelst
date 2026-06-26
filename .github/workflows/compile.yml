@@ -1,0 +1,49 @@
+name: Compile MRS Ruleset
+
+on:
+  # Запуск вручную кнопкой в интерфейсе GitHub
+  workflow_dispatch:
+  # Автоматический запуск каждые 24 часа
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Download source domains
+        run: |
+          curl -sSL "https://raw.githubusercontent.com/Yularzhi/geosite_russia/main/data/category-ads-all" -o domains.txt
+
+      - name: Install Mihomo (Clash Meta)
+        run: |
+          # Скачиваем последнюю версию mihomo для Linux
+          MIHOMO_VERSION=$(curl -s "https://api.github.com/repos/MetaCubeX/mihomo/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+          curl -sSL "https://github.com/MetaCubeX/mihomo/releases/download/${MIHOMO_VERSION}/mihomo-linux-amd64-${MIHOMO_VERSION}.gz" -o mihomo.gz
+          gunzip mihomo.gz
+          chmod +x mihomo
+          sudo mv mihomo /usr/local/bin/mihomo
+
+      - name: Compile to MRS
+        run: |
+          # Компилируем текстовый список доменов в бинарный файл .mrs
+          mihomo cli ruleset compile domains.txt -o category-ads-all.mrs
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ads-mrs-ruleset
+          path: category-ads-all.mrs
+
+      # (Опционально) Публикация в релизы, чтобы была постоянная ссылка
+      - name: Release MRS File
+        uses: softprops/action-gh-release@v3
+        if: success()
+        with:
+          tag_name: latest
+          files: category-ads-all.mrs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
