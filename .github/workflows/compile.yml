@@ -18,20 +18,21 @@ jobs:
         run: |
           curl -sSL "https://raw.githubusercontent.com/Yularzhi/geosite_russia/main/data/category-ads-all" -o domains.txt
 
-      - name: Install Ruleset Compiler
+      - name: Install Official Mihomo
         run: |
-          # Скачиваем официальный легкий компилятор правил от MetaCubeX
-          curl -sSL "https://github.com/MetaCubeX/metacubexraw/releases/download/v0.0.3/metacubexraw-linux-amd64" -o compiler
-          chmod +x compiler
-          sudo mv compiler /usr/local/bin/metacubexraw
-          echo "Compiler installed!"
+          # Скачиваем официальный релиз напрямую из репозитория MetaCubeX/mihomo
+          curl -sSL "https://github.com/MetaCubeX/mihomo/releases/download/v1.18.9/mihomo-linux-amd64-v1.18.9.gz" -o coupons.gz
+          gunzip coupons.gz
+          chmod +x coupons
+          sudo mv coupons /usr/local/bin/mihomo
 
       - name: Compile to MRS
         run: |
-          echo "Starting compilation of domains.txt..."
+          echo "Starting compilation..."
           
-          # Компилируем напрямую через легкую утилиту
-          metacubexraw ruleset compile domains.txt -o category-ads-all.mrs
+          # Мы перенаправляем пустой ввод в команду. 
+          # Это предотвращает переход Mihomo в интерактивный режим ожидания сети.
+          mihomo cli ruleset compile domains.txt -o category-ads-all.mrs < /dev/null
           
           echo "Compilation finished!"
 
