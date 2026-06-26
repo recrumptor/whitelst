@@ -14,9 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Download source domains
-        run: |
-          curl -sSL "https://raw.githubusercontent.com/Yularzhi/geosite_russia/main/data/category-ads-all" -o domains.txt
 
       - name: Install Official Mihomo
         run: |
@@ -26,15 +23,20 @@ jobs:
           chmod +x coupons
           sudo mv coupons /usr/local/bin/mihomo
 
-      - name: Compile to MRS
+      - name: Compile YAML to MRS
         run: |
-          echo "Starting compilation..."
+          echo "Starting compilation of ads.yaml..."
           
-          # Мы перенаправляем пустой ввод в команду. 
-          # Это предотвращает переход Mihomo в интерактивный режим ожидания сети.
-          mihomo cli ruleset compile domains.txt -o category-ads-all.mrs < /dev/null
+          # Запускаем компиляцию локального файла ads.yaml из вашего репозитория
+          # timeout на 5 секунд защитит от зависания прокси-сервера
+          timeout 5s mihomo cli ruleset compile ads.yaml -o category-ads-all.mrs || true
           
-          echo "Compilation finished!"
+          # Проверяем результат
+          if [ -s category-ads-all.mrs ]; then
+            echo "Success! Binary MRS rule-provider created."
+          else
+            echo "Error: Compilation failed." && exit 1
+          fi
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
