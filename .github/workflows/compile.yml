@@ -29,14 +29,15 @@ jobs:
           
           # Синтаксис: mihomo convert-ruleset [поведение] [исходный-формат] [входной-файл] [выходной-файл]
           mihomo convert-ruleset domain yaml ads.yaml category-ads-all.mrs
+          mihomo convert-ruleset classical yaml Whitelst.yaml whitelst.mrs
           
           echo "Conversion finished perfectly!"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ads-mrs-ruleset
-          path: category-ads-all.mrs
+          name: ads-wtl-mrs-ruleset
+          path: "*.mrs"
 
       # (Опционально) Публикация в релизы, чтобы была постоянная ссылка
       - name: Release MRS File
@@ -44,6 +45,9 @@ jobs:
         if: success()
         with:
           tag_name: latest
-          files: category-ads-all.mrs
+          name: "Latest Compiled Ruleset"
+          files: |
+            category-ads-all.mrs
+            whitelst.mrs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
