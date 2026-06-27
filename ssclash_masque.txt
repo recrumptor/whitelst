@@ -148,10 +148,11 @@ rule-providers:
   telegram-ip:
     behavior: ipcidr
     type: http
-    format: text
-    url: https://core.telegram.org/resources/cidr.txt
+    format: mrs
+    #url: https://core.telegram.org/resources/cidr.txt
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/telegram.mrs"
     interval: 86400
-    path: ./ruleset/telegram-ip.yaml
+    path: ./ruleset/telegram-ip.mrs
 
 rules:
   - RULE-SET,mybest_ads,REJECT
