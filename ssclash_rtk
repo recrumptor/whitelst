@@ -88,41 +88,44 @@ proxy-groups:
 rule-providers:
 
   mybest_ads:
-    type: http
     behavior: domain
-    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/ads.yaml"
-    path: ./ruleset/my-ads.yaml
+    type: http
+    format: mrs
+    url: 'https://github.com/recrumptor/whitelst/releases/download/latest/category-ads-all.mrs'
+    path: ./ruleset/my-ads.mrs
     interval: 86400
     
   geo-blocked:
     behavior: domain
     type: http
-    format: text
-    url: 'https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/geo.txt'
+    format: mrs
+    url: 'https://github.com/itdoginfo/allow-domains/releases/latest/download/geoblock_domain.mrs'
     interval: 86400
-    path: ./ruleset/geo-blocked.yaml
+    path: ./ruleset/geo-blocked.mrs
     
   gemini:
-    behavior: classical
-    type: http
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/classical/google-gemini.yaml"
-    interval: 86400
-    path: ./ruleset/gemini.yaml
-  
-  youtube:
     behavior: domain
     type: http
-    format: text
-    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/Youtube.txt"
+    format: mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-gemini.mrs"
     interval: 86400
-    path: ./ruleset/youtube.yaml
+    path: ./ruleset/gemini.mrs
+  
+  #youtube:
+    #behavior: domain
+    #type: http
+    #format: mrs
+    #url: "https://github.com/itdoginfo/allow-domains/releases/latest/download/youtube_domain.mrs"
+    #interval: 86400
+    #path: ./ruleset/youtube.mrs
     
   telegram:
     behavior: domain
     type: http
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/telegram.yaml"
+    format: mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/telegram.mrs"
     interval: 86400
-    path: ./ruleset/telegram.yaml
+    path: ./ruleset/telegram.mrs
     
   telegram-ip:
     behavior: ipcidr
@@ -131,7 +134,6 @@ rule-providers:
     url: https://core.telegram.org/resources/cidr.txt
     interval: 86400
     path: ./ruleset/telegram-ip.yaml
-
 rules:
   
   - RULE-SET,mybest_ads,REJECT
