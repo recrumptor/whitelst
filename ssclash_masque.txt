@@ -127,7 +127,7 @@ rule-providers:
     format: mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-gemini.mrs"
     interval: 86400
-    path: ./ruleset/gemini.yaml
+    path: ./ruleset/gemini.mrs
   
   #youtube:
     #behavior: domain
