@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   # Автоматический запуск каждые 24 часа
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 4 * * *'
 
 jobs:
   build:
