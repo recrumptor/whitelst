@@ -27,7 +27,7 @@ dns:
   direct-nameserver:
     - system
    
-keep-alive-idle: 15
+keep-alive-idle: 60
 keep-alive-interval: 15
 find-process-mode: off
 
@@ -64,7 +64,6 @@ proxy-providers:
     path: ./proxy_providers/al.yaml
     interval: 28800
     #filter: "🇷🇺|Germany|Netherlands|Finland"
-    proxy: SUB4
     header:
       User-Agent:
       - "FlClash"
@@ -79,42 +78,9 @@ proxy-providers:
       lazy: true
       expected-status: 204
       
-  ST START:
-    type: file
-    path: ./st.yaml
-    format: text
-    header:
-      User-Agent:
-      - "FlClash"
-      x-hwid:
-      - "OpenWrt"
-    health-check:
-      enable: true
-      #url: http://cp.cloudflare.com/generate_204
-      url: http://www.gstatic.com/generate_204
-      interval: 300
-      timeout: 5000
-      lazy: true
-      expected-status: 204
+  
 
-  BE BENSS:
-    type: http
-    url: "https://gitverse.ru/api/repos/Benss/Vless/raw/branch/master/new_file"
-    path: ./proxy_providers/be.yaml
-    interval: 28800
-    header:
-      User-Agent:
-      - "FlClash"
-      x-hwid:
-      - "OpenWrt"
-    health-check:
-      enable: true
-      #url: http://cp.cloudflare.com/generate_204
-      url: http://www.gstatic.com/generate_204
-      interval: 300
-      timeout: 5000
-      lazy: true
-      expected-status: 204
+  
 
 proxy-groups:
 
@@ -146,45 +112,33 @@ proxy-groups:
     - AL ALIVE
     exclude-filter: "🇷🇺"
     
-  - name: SUB4
-    type: fallback
-    #tolerance: 60
-    interval: 300
-    lazy: true
-    use: 
-    - ST START
-    - BE BENSS
-
-  - name: PROXY
-    type: select
-    proxies:
-    - 🇳🇱 Proton
-    - SUB2
-    - SUB4
+  
   
 rule-providers:
 
   awavenue_ads:
     type: http
     behavior: domain
-    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/ads.yaml"
-    path: ./ruleset/awavenue.yaml
+    format: mrs
+    url: "https://github.com/recrumptor/whitelst/releases/download/latest/category-ads-all.mrs"
+    path: ./ruleset/awavenue.mrs
     interval: 86400
     
   geo-blocked:
     behavior: domain
     type: http
-    format: text
-    url: 'https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/geo.txt'
+    format: mrs
+    url: 'https://github.com/itdoginfo/allow-domains/releases/latest/download/geoblock_domain.mrs'
     interval: 86400
-    path: ./ruleset/geo-blocked.yaml
+    path: ./ruleset/geo-blocked.mrs
     
   gemini:
-    behavior: classical
+    behavior: domain
     type: http
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/classical/google-gemini.yaml"
+    format: mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-gemini.mrs"
     interval: 86400
-    path: ./ruleset/gemini.yaml
+    path: ./ruleset/gemini.mrs
     
   whitelist:
     behavior: classical
@@ -197,32 +151,33 @@ rule-providers:
   youtube:
     behavior: domain
     type: http
-    format: text
-    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/Youtube.txt"
+    format: mrs
+    url: "https://github.com/itdoginfo/allow-domains/releases/latest/download/youtube_domain.mrs"
     interval: 86400
-    path: ./ruleset/youtube.yaml
-  google_play:
-    behavior: domain
-    type: http
-    format: text
-    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/google_play.txt"
-    interval: 86400
-    path: ./ruleset/google_play.yaml
+    path: ./ruleset/youtube.mrs
+  
   meta:
     behavior: domain
     type: http
-    format: text
-    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/meta.txt"
+    format: mrs
+    url: "https://github.com/itdoginfo/allow-domains/releases/latest/download/meta_domain.mrs"
     interval: 86400
-    path: ./ruleset/meta.yaml
+    path: ./ruleset/meta.mrs
   telegram:
     behavior: domain
     type: http
-    format: text
-    url: "https://raw.githubusercontent.com/recrumptor/whitelst/refs/heads/main/telegram.txt"
+    format: mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/telegram.mrs"
     interval: 86400
-    path: ./ruleset/telegram.yaml
-
+    path: ./ruleset/telegram.mrs
+  telegram-ip:
+    behavior: ipcidr
+    type: http
+    format: mrs
+    #url: https://core.telegram.org/resources/cidr.txt
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/telegram.mrs"
+    interval: 86400
+    path: ./ruleset/telegram-ip.mrs
 
 
 
@@ -233,16 +188,14 @@ rules:
   - DOMAIN-SUFFIX,vigo.one,REJECT
   - DOMAIN-SUFFIX,uxfeedback.ru,REJECT
   - DOMAIN-SUFFIX,tns-counter.ru,REJECT
-  - DOMAIN,adsdk.yandex.ru,REJECT
-  - DOMAIN,ad.mail.ru,REJECT
   - DOMAIN-SUFFIX,yandex.net,DIRECT
   - RULE-SET,whitelist,DIRECT
-  - RULE-SET,google_play,SUB2
-  - RULE-SET,meta,SUB2
+  - RULE-SET,meta,SUB3
   - RULE-SET,telegram,SUB3
+  - RULE-SET,telegram-ip,SUB3
   - DOMAIN-SUFFIX,ntc.party,SUB3
   - RULE-SET,youtube,SUB2
   - RULE-SET,gemini,SUB3
-  - DOMAIN-KEYWORD,google,SUB2
   - RULE-SET,geo-blocked,SUB3
+  - DOMAIN-KEYWORD,google,SUB2
   - MATCH,SUB1
