@@ -28,7 +28,7 @@ dns:
     #- https://common.dot.dns.yandex.net/dns-query
      
   nameserver-policy:
-       
+    'rule-set:mybest_ads': rcode://success # блокировка запроса днс рекламы   
     #'rule-set:geo-blocked': 'https://1.1.1.1/dns-query#disable-ipv6=true' # оставляем только ipv4 там где это нужно 
     #'rule-set:gemini': 'https://1.1.1.1/dns-query#disable-ipv6=true'
     'rule-set:geo-blocked': '10.2.0.1#PROXY&disable-ipv6=true'
