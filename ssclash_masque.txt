@@ -156,7 +156,7 @@ rule-providers:
     path: ./ruleset/telegram-ip.mrs
 
 rules:
-  - RULE-SET,mybest_ads,REJECT
+  # - RULE-SET,mybest_ads,REJECT
   - DOMAIN-SUFFIX,vigo.one,REJECT
   - DOMAIN-SUFFIX,uxfeedback.ru,REJECT
   - RULE-SET,telegram,PROXY
