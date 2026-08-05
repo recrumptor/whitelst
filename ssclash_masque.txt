@@ -27,7 +27,8 @@ dns:
     - https://common.dot.dns.yandex.net/dns-query
     
   nameserver-policy:
-       
+
+    'rule-set:mybest_ads': rcode://success   
     'rule-set:gemini': 'https://1.1.1.1/dns-query#disable-ipv6=true'
     'rule-set:geo-blocked': 'https://1.1.1.1/dns-query#disable-ipv6=true'
       
