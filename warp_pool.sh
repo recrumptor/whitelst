@@ -1,8 +1,11 @@
 #!/bin/sh
 
-# Имя интерфейса в OpenWrt и метка пира в Description
-IFACE="awg1"
-PEER_DESC="WARPv1_55"
+# chmod +x /usr/bin/warp_pool.sh
+# */3 * * * * /usr/bin/warp_pool.sh
+
+# Имя интерфейса в OpenWrt и метка пира в Description внести свои значения
+IFACE="awg1" 
+PEER_DESC="WARPv1_55" 
 
 # Узел для проверки доступности интернета через VPN
 PING_TARGET="172.16.0.1"
@@ -29,7 +32,7 @@ ENDPOINTS="
 188.114.97.42:2408
 "
 
-# 1. Поиск индекса пира по его описанию (Используем amneziawg вместо wireguard)
+# 1. Поиск индекса пира по его описанию 
 PEER_INDEX=""
 INDEX=0
 while true; do
