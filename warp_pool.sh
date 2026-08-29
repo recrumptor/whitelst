@@ -3,6 +3,8 @@
 # chmod +x /usr/bin/warp_pool.sh
 # */3 * * * * /usr/bin/warp_pool.sh
 
+# logread -e warp_pool
+
 # Имя интерфейса в OpenWrt и метка пира в Description внести свои значения
 IFACE="awg1" 
 PEER_DESC="WARPv1_55" 
