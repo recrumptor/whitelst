@@ -11,18 +11,18 @@ payload:
   - DOMAIN-SUFFIX,gpb.ru
   - DOMAIN-SUFFIX,vtb.ru
   - DOMAIN-SUFFIX,vtb.com
-  # - DOMAIN-KEYWORD,sberbank
-  # - DOMAIN-SUFFIX,sber.ru
+  - DOMAIN-KEYWORD,sberbank
+  - DOMAIN-SUFFIX,sber.ru
   # - DOMAIN-SUFFIX,sbermarketing.ru
   - DOMAIN-SUFFIX,cdn.s3torage.ru
   - DOMAIN-SUFFIX,cdn.mdigital.ru
   - DOMAIN-SUFFIX,mironline.ru
   - DOMAIN-SUFFIX,mir-platform.ru
   - DOMAIN-SUFFIX,mirconnect.ru
-  # - DOMAIN-SUFFIX,t-bank-app.ru
-  # - DOMAIN-SUFFIX,tbank.ru
-  # - DOMAIN-SUFFIX,tinkoff.ru
-  # - DOMAIN-SUFFIX,cdn-tinkoff.ru
+  - DOMAIN-SUFFIX,t-bank-app.ru
+  - DOMAIN-SUFFIX,tbank.ru
+  - DOMAIN-SUFFIX,tinkoff.ru
+  - DOMAIN-SUFFIX,cdn-tinkoff.ru
   - DOMAIN-SUFFIX,finuslugi.ru
   - DOMAIN-SUFFIX,moex.com
   - DOMAIN-SUFFIX,banki.ru
@@ -54,7 +54,7 @@ payload:
   - DOMAIN-SUFFIX,mts.ru
   - DOMAIN-SUFFIX,mymts.ru
   - DOMAIN-SUFFIX,mtsdengi.ru
-  # - DOMAIN-SUFFIX,mts.investments
+  - DOMAIN-SUFFIX,mts.investments
   - DOMAIN-SUFFIX,mts-link.ru
   - DOMAIN-SUFFIX,cdn.mtscdn.ru
   - DOMAIN-SUFFIX,t2.ru
@@ -215,7 +215,7 @@ payload:
   - DOMAIN-SUFFIX,static-food-2.ru
   - DOMAIN-SUFFIX,krasyar.ru
   - DOMAIN-SUFFIX,dixy.ru
-  # - DOMAIN-SUFFIX,av.ru
+  - DOMAIN-SUFFIX,av.ru
   - DOMAIN-SUFFIX,fix-price.com
   # - DOMAIN-KEYWORD,krasnoeibeloe
   - DOMAIN-SUFFIX,galamart.ru
@@ -346,7 +346,7 @@ payload:
   - DOMAIN-SUFFIX,rzd.ru
   - DOMAIN-SUFFIX,rzd-bonus.ru
   - DOMAIN-SUFFIX,tutu.ru
-  # - DOMAIN-SUFFIX,tu-tu.ru
+  - DOMAIN-SUFFIX,tu-tu.ru
   # - DOMAIN-SUFFIX,taximaxim.ru
   - DOMAIN-SUFFIX,taxipoehali.ru
   - DOMAIN-SUFFIX,flypobeda.ru
@@ -362,6 +362,7 @@ payload:
   - DOMAIN-SUFFIX,delimobil.ru
   - DOMAIN-SUFFIX,uralairlines.ru
   - DOMAIN-SUFFIX,netmonet.co
-  # - DOMAIN-SUFFIX,urentbike.ru
+  - DOMAIN-SUFFIX,urentbike.ru
+  - DOMAIN-SUFFIX,urent.ru
   
 
