@@ -21,6 +21,8 @@ dns:
   default-nameserver:
     - 77.88.8.8
     - 77.88.8.1
+  nameserver-policy:
+    'rule-set:awavenue_ads': rcode://success # блокировка запроса днс рекламы
   nameserver:
     - https://common.dot.dns.yandex.net/dns-query
  
